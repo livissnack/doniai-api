@@ -1,20 +1,28 @@
 {
-  "name": "adonis-fullstack-app",
+  "name": "doniai-api-app",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
   "description": "The fullstack application boilerplate for Adonisjs",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "node --inspect server.js",
     "test": "node ace test"
   },
   "keywords": [
     "adonisjs",
-    "adonis-app"
+    "adonis-app",
+    "doniai-api",
+    "doniai"
   ],
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "livissnack",
+  "license": "MIT",
   "private": true,
+  "homepage": "https://github.com/livissnack/doniai-api#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:livissnack/doniai-api.git"
+  },
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
     "@adonisjs/auth": "^3.0.7",
@@ -25,7 +33,19 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@adonisjs/session": "^1.0.27",
-    "@adonisjs/shield": "^1.0.8"
+    "@adonisjs/shield": "^1.0.8",
+    "@adonisjs/validator": "^5.0.6",
+    "ali-oss": "^6.1.1",
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "compress-images": "^1.5.8",
+    "gt3-sdk": "^2.0.0",
+    "http-proxy": "^1.17.0",
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1",
+    "random-avatar": "^1.0.1",
+    "superagent": "^5.1.0",
+    "username-generator": "^1.1.0"
   },
   "devDependencies": {},
   "autoload": {

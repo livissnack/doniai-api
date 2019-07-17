@@ -14,6 +14,9 @@ database/development.sqlite
 # VSCode & Webstorm history directories
 .history
 .idea
+.vscode
 
 # ignore pm2 deploy config file
 ecosystem.config.js
+deploy.sh
+proxy.js
