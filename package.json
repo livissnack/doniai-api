@@ -44,6 +44,7 @@
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
     "random-avatar": "^1.0.1",
+    "randomatic": "^3.1.1",
     "superagent": "^5.1.0",
     "username-generator": "^1.1.0"
   },

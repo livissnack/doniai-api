@@ -16,7 +16,10 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 Route.get("/", () => "Hello world");
-Route.get("/test", "CrawlerController.crawlerFreeProxy").namespace("Utils");
+Route.get("/test", "TestController.test");
+Route.get("/download", "TestController.download");
+Route.get("/attachment", "TestController.attachment");
+Route.get("/password", "PasswdController.generate").namespace("Utils");
 
 /*
 |--------------------------------------------------------------------------
