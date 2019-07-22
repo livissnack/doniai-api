@@ -14,12 +14,14 @@ class EmailController {
           message.to(toMail);
         }
       );
+      console.log(data);
       return response.json({
         status: "success",
         msg: "邮件发送成功",
         data: data
       });
     } catch (error) {
+        console.log(error);
       return response.json({
         status: "failure",
         msg: "邮件发送失败",
