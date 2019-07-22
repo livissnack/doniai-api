@@ -19,7 +19,6 @@ Route.get("/", () => "Hello world");
 Route.get("/test", "TestController.test");
 Route.get("/download", "TestController.download");
 Route.get("/attachment", "TestController.attachment");
-Route.get("/password", "PasswdController.generate").namespace("Utils");
 
 /*
 |--------------------------------------------------------------------------
@@ -141,7 +140,6 @@ Route.group(() => {
   .namespace("Utils")
   .prefix("api/v1/oss");
 
-
 /*
 |--------------------------------------------------------------------------
 | Routes crawler net data
@@ -158,7 +156,6 @@ Route.group(() => {
 })
   .namespace("Utils")
   .prefix("api/v1/crawler");
-
 
 /*
 |--------------------------------------------------------------------------
@@ -178,7 +175,6 @@ Route.group(() => {
   .namespace("Utils")
   .prefix("api/v1/captcha");
 
-
 /*
 |--------------------------------------------------------------------------
 | Routes banwagong server all methods
@@ -196,3 +192,18 @@ Route.group(() => {
 })
   .namespace("Utils")
   .prefix("api/v1/server");
+
+/*
+|--------------------------------------------------------------------------
+| Routes generate password string
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.get("/password", "PasswdController.generate");
+})
+  .namespace("Utils")
+  .prefix("api/v1/string");
