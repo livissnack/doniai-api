@@ -207,3 +207,35 @@ Route.group(() => {
 })
   .namespace("Utils")
   .prefix("api/v1/string");
+
+/*
+|--------------------------------------------------------------------------
+| Routes send sms
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.get("/query", "SmsController.query");
+  Route.post("/send", "SmsController.send");
+  Route.post("/sendBatch", "SmsController.sendBatch");
+})
+  .namespace("Utils")
+  .prefix("api/v1/sms");
+
+/*
+|--------------------------------------------------------------------------
+| Routes send email
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.get("/send", "EmailController.send");
+})
+  .namespace("Utils")
+  .prefix("api/v1/email");
