@@ -31,6 +31,27 @@ class CrawlerController {
     }
   }
 
+  /**
+   * 开始执行爬虫--爬取免费的高匿名代理
+   * @param {reponse} object 
+   */
+  async crawlerFreeProxy({ response }) {
+    try{
+      let crawlerData = await httpGet("http://free-proxy.cz/zh/proxylist/country/all/socks5/ping/level1");
+      if (isOk(crawlerData.status)) {
+        let proxyList = await parseFreeProxy(crawlerData.data);
+        return response.json(proxyList);
+      }
+    }catch(error) {
+      return response.json({
+        status: "failure",
+        msg: "数据抓取失败",
+        data: error.toString()
+      });
+    }
+    
+  }
+
   async index() {
     return "dadadas";
   }

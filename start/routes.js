@@ -16,12 +16,17 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 Route.get("/", () => "Hello world");
-Route.get("/test", "TestController.test");
-//test method
-// Route.get("/test", "OssController.put").namespace("Utils");
-// Route.get("/test1", "OssController.list").namespace("Utils");
-// Route.get("/test2", "OssController.listBuckets").namespace("Utils");
+Route.get("/test", "CrawlerController.crawlerFreeProxy").namespace("Utils");
 
+/*
+|--------------------------------------------------------------------------
+| Routes discuss website
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
 Route.group(() => {
   //user login route
   Route.post("login", "UserController.login")
@@ -68,15 +73,16 @@ Route.group(() => {
   .namespace("Api")
   .prefix("api/v1");
 
+/*
+|--------------------------------------------------------------------------
+| Routes ali oss bucket
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
 Route.group(() => {
-  //crawler news data
-  Route.get("/crawler/baidu", "CrawlerController.crawlerBaiduHotNews");
-  Route.get("/crawler/toutiao", "CrawlerController.crawlerToutiaoHotNews");
-  //geetest register method
-  Route.get("/gt/register-click", "GeetestController.geetest");
-  //geetest validate method
-  Route.post("/gt/validate-click", "GeetestController.validate");
-
   //oss bucket operations
   Route.get("/listBuckets", "OssController.listBuckets");
   Route.put("/putBucket", "OssController.putBucket");
@@ -130,10 +136,60 @@ Route.group(() => {
   Route.get("/getImg", "OssController.getImg");
 })
   .namespace("Utils")
-  .prefix("api/v1");
+  .prefix("api/v1/oss");
 
+
+/*
+|--------------------------------------------------------------------------
+| Routes crawler net data
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
 Route.group(() => {
-  Route.get("/test", "BanwaController.getServiceInfo");
+  //crawler news data
+  Route.get("/crawler/baidu", "CrawlerController.crawlerBaiduHotNews");
+  Route.get("/crawler/toutiao", "CrawlerController.crawlerToutiaoHotNews");
 })
   .namespace("Utils")
-  .prefix("api/v1/service");
+  .prefix("api/v1/crawler");
+
+
+/*
+|--------------------------------------------------------------------------
+| Routes captcha all methods
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  //geetest register method
+  Route.get("/gt/register-click", "GeetestController.geetest");
+  //geetest validate method
+  Route.post("/gt/validate-click", "GeetestController.validate");
+})
+  .namespace("Utils")
+  .prefix("api/v1/captcha");
+
+
+/*
+|--------------------------------------------------------------------------
+| Routes banwagong server all methods
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.get("/getServiceInfo", "BanwaController.getServiceInfo");
+  Route.post("/snapshot", "BanwaController.snapshot");
+  Route.post("/restartVps", "BanwaController.restartVps");
+  Route.post("/setPtrRecord", "BanwaController.setPtrRecord");
+})
+  .namespace("Utils")
+  .prefix("api/v1/server");

@@ -6,6 +6,7 @@
  */
 
 "use strict";
+const fs = require("fs");
 const moment = require("moment");
 const cheerio = require("cheerio");
 const superagent = require("superagent");
@@ -20,6 +21,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       superagent.get(url).end((err, res) => {
         if (err) {
+          console.log(err);
           reject(`数据抓取失败 - ${err}`);
         } else {
           resolve({ status: "ok", data: res.text });
@@ -27,6 +29,39 @@ module.exports = {
       });
     });
   },
+
+  /**
+   * @method httpTlsGet
+   * 发起一个https的get请求
+   * @param {url} string
+   * @param {keyPath} string
+   * @param {certPath} string
+   */
+  httpTlsGet(url, keyPath, certPath) {
+    return new Promise((resolve, reject) => {
+      if (!fs.existsSync(keyPath)) {
+        reject(`ssl key file not exists.`);
+      }
+      if (!fs.existsSync(certPath)) {
+        reject(`ssl cert file not exists.`);
+      }
+      let key = fs.readFileSync(keyPath);
+      let cert = fs.readFileSync(certPath);
+      superagent
+        .get(url)
+        .key(key)
+        .cert(cert)
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+            reject(`数据抓取失败 - ${err}`);
+          } else {
+            resolve({ status: "ok", data: res.text });
+          }
+        });
+    });
+  },
+
   /**
    * @method parseBaiduHotNews
    * 解析百度热门新闻
@@ -46,6 +81,7 @@ module.exports = {
       });
     });
   },
+
   /**
    * @method parseToutiaoHotNews
    * 解析头条热门新闻
@@ -65,6 +101,27 @@ module.exports = {
       });
     });
   },
+
+  /**
+   * @method parseFreeProxy
+   * 解析免费代理
+   * @param {html} data
+   */
+  parseFreeProxy(html /*, html*/) {
+    return new Promise((resolve, reject) => {
+      let proxy_list = [];
+      let $ = cheerio.load(html);
+      $("table#proxy_list tbody tr td").each((idx, ele) => {
+        let proxy_data = {
+          title: $(ele).text(),
+          href: $(ele).attr("href")
+        };
+        proxy_list.push(proxy_data);
+        resolve(proxy_list);
+      });
+    });
+  },
+
   /**
    * @method isOk
    * 检查成功返回状态
@@ -73,6 +130,7 @@ module.exports = {
   isOk(state /*, state*/) {
     return state.toLowerCase() === "ok" ? true : false;
   },
+
   /**
    * @method isNo
    * 检查失败返回状态
@@ -82,7 +140,13 @@ module.exports = {
     return state.toLowerCase() === "no" ? true : false;
   },
 
-  formatDate(value, format = 'YYYY-MM-DD HH:mm:ss') {
-    return value ? moment(value).format(format) : '';
+  /**
+   * @method formatDate
+   * 格式化时间
+   * @param {value} string
+   * @param {format} string
+   */
+  formatDate(value, format = "YYYY-MM-DD HH:mm:ss") {
+    return value ? moment(value).format(format) : "";
   }
 };
