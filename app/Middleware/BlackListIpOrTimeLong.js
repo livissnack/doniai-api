@@ -5,7 +5,7 @@
 const moment = use("moment");
 const BlackList = use("App/Models/BlackList");
 
-class BlackListIpOrUser {
+class BlackListIpOrTimeLong {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -43,4 +43,4 @@ class BlackListIpOrUser {
   }
 }
 
-module.exports = BlackListIpOrUser;
+module.exports = BlackListIpOrTimeLong;
