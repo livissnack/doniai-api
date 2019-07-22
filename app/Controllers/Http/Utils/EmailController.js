@@ -6,10 +6,14 @@ class EmailController {
     try {
       const formMail = request.input("form", "livissnack@doniai.com");
       const toMail = request.input("to", "guanxin@tinytiger.cn");
-      const data = await Mail.send("emails.welcome", {}, message => {
-        message.from(formMail);
-        message.to(toMail);
-      });
+      const data = await Mail.send(
+        "emails.index",
+        { username: "livissnack" },
+        message => {
+          message.from(formMail);
+          message.to(toMail);
+        }
+      );
       return response.json({
         status: "success",
         msg: "邮件发送成功",
