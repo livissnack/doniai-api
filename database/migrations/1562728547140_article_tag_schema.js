@@ -7,7 +7,7 @@ class ArticleTagSchema extends Schema {
   up () {
     this.create('article_tags', (table) => {
       table.increments()
-      table.string('value', 200).notNullable().unique().comment('tag内容')
+      table.string('value', 40).notNullable().unique().comment('tag内容')
       table.timestamps()
     })
   }

@@ -7,9 +7,10 @@ class ReplaySchema extends Schema {
   up () {
     this.create('replays', (table) => {
       table.increments()
-      table.integer('reply_id').notNullable().comment('问题回复ID')
-      table.integer('reply_user_id').notNullable().comment('回复用户ID')
-      table.string('content', 200).notNullable().comment('回复内容')
+      table.integer('qid').notNullable().comment('问题ID')
+      table.integer('pid').notNullable().comment('问题回复父ID')
+      table.integer('user_id').notNullable().comment('回复用户ID')
+      table.string('content').notNullable().comment('回复内容')
       table.timestamps()
     })
   }

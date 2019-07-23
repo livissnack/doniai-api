@@ -9,7 +9,7 @@ class Comment extends Model {
     }
 
     children() {
-        return this.hasMany("App/Models/Comment", "id", "parent_id");
+        return this.hasMany("App/Models/Comment", "id", "pid");
     }
 
     allChildren() {

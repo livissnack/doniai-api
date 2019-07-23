@@ -7,7 +7,7 @@ class QuestionSchema extends Schema {
   up () {
     this.create('questions', (table) => {
       table.increments()
-      table.string('value', 200).notNullable().unique().comment('问题内容')
+      table.string('content').notNullable().unique().comment('问题内容')
       table.integer('user_id').notNullable().comment('用户ID')
       table.timestamps()
     })
