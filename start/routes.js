@@ -151,8 +151,8 @@ Route.group(() => {
 */
 Route.group(() => {
   //crawler news data
-  Route.get("/crawler/baidu", "CrawlerController.crawlerBaiduHotNews");
-  Route.get("/crawler/toutiao", "CrawlerController.crawlerToutiaoHotNews");
+  Route.get("/baidu", "CrawlerController.crawlerBaiduHotNews");
+  Route.get("/toutiao", "CrawlerController.crawlerToutiaoHotNews");
 })
   .namespace("Utils")
   .prefix("api/v1/crawler");
@@ -168,9 +168,9 @@ Route.group(() => {
 */
 Route.group(() => {
   //geetest register method
-  Route.get("/gt/register-click", "GeetestController.geetest");
+  Route.get("/register-click", "GeetestController.geetest");
   //geetest validate method
-  Route.post("/gt/validate-click", "GeetestController.validate");
+  Route.post("/validate-click", "GeetestController.validate");
 })
   .namespace("Utils")
   .prefix("api/v1/captcha");
