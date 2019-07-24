@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| CommentRelationSeeder
+| BlackListSeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -11,11 +11,12 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
+const Factory = use('Factory');
 
-class CommentRelationSeeder {
-  async run () {
-  }
+class BlackListSeeder {
+    async run() {
+        const black_lists = await Factory.model('App/Models/BlackList').createMany(100)
+    }
 }
 
-module.exports = CommentRelationSeeder
+module.exports = BlackListSeeder

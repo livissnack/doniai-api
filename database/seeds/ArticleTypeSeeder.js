@@ -12,28 +12,11 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
-const ArticleType = use('App/Models/ArticleType')
 
 class ArticleTypeSeeder {
-  async run () {
-    const articleTypes = [{
-      value: '知识',
-    },
-      {
-        value: '散文',
-      },
-      {
-        value: '技术',
-      },
-      {
-        value: '智能',
-      },
-      {
-        value: '眼界',
-      },
-    ]
-    await ArticleType.createMany(articleTypes)
-  }
+    async run() {
+        const article_types = await Factory.model('App/Models/ArticleType').createMany(100)
+    }
 }
 
 module.exports = ArticleTypeSeeder

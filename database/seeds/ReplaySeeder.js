@@ -15,6 +15,7 @@ const Factory = use('Factory')
 
 class ReplaySeeder {
   async run () {
+    const replays = await Factory.model('App/Models/Replay').createMany(100)
   }
 }
 

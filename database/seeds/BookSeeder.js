@@ -15,6 +15,7 @@ const Factory = use('Factory')
 
 class BookSeeder {
   async run () {
+    const books = await Factory.model('App/Models/Book').createMany(100)
   }
 }
 

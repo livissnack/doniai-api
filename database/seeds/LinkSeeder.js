@@ -15,6 +15,7 @@ const Factory = use('Factory')
 
 class LinkSeeder {
   async run () {
+    const links = await Factory.model('App/Models/Link').createMany(100)
   }
 }
 
