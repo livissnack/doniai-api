@@ -42,7 +42,7 @@ Factory.blueprint('App/Models/User', (faker) => {
 Factory.blueprint('App/Models/Article', (faker) => {
     return {
         title: faker.sentence(),
-        user_id: faker.integer({ min: 1, max: 100000 }),
+        user_id: faker.integer({ min: 1, max: 100 }),
         type_id: faker.integer({ min: 1, max: 10 }),
         tag_id: faker.integer({ min: 1, max: 30 }),
         content: faker.paragraph(),
@@ -118,7 +118,7 @@ Factory.blueprint('App/Models/Replay', (faker) => {
     return {
         qid: faker.integer({ min: 1, max: 100 }),
         pid: faker.integer({ min: 1, max: 100 }),
-        user_id: faker.integer({ min: 1, max: 100000 }),
+        user_id: faker.integer({ min: 1, max: 100 }),
         content: faker.sentence(),
     }
 })
