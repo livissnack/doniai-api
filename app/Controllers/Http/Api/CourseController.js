@@ -11,7 +11,7 @@ class CourseController {
     const { page, pageSize } = request.only(["page", "pageSize"]);
     const isFree = request.input("is_free", 0);
     const status = request.input("status", 0);
-    const iWhere = { is_free: isFree, course_status: status };
+    const iWhere = { is_free: isFree, status: status };
     try {
       const data = await Course.query()
         .where(iWhere)

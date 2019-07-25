@@ -42,7 +42,7 @@ Route.group(() => {
   Route.get("logout", "UserController.logout");
 
   //user detail route
-  Route.get("users/:id", "UserController.show").middleware("auth");
+  Route.get("users/:id", "UserController.detail").middleware("auth");
 
   //article resource route only index,store,show,update and destroy method
   Route.get("/articles", "ArticleController.index").validator("Article");
@@ -50,6 +50,13 @@ Route.group(() => {
   Route.get("/articles/:id", "ArticleController.show");
   Route.put("/articles/:id", "ArticleController.update");
   Route.delete("/articles/:id", "ArticleController.destroy");
+
+  //black list resource route only index,store,show,update and destroy method
+  Route.get("/blacklists", "BlackListController.index");
+  Route.post("/blacklists", "BlackListController.store");
+  Route.get("/blacklists/:id", "BlackListController.show");
+  Route.put("/blacklists/:id", "BlackListController.update");
+  Route.delete("/blacklists/:id", "BlackListController.destroy");
 
   //book resource route only index,store,show,update and destroy method
   Route.get("/books", "BookController.index");
@@ -71,6 +78,41 @@ Route.group(() => {
   Route.get("/courses/:id", "CourseController.show");
   Route.put("/courses/:id", "CourseController.update");
   Route.delete("/courses/:id", "CourseController.destroy");
+
+  //link resource route only index,store,show,update and destroy method
+  Route.get("/links", "LinkController.index");
+  Route.post("/links", "LinkController.store");
+  Route.get("/links/:id", "LinkController.show");
+  Route.put("/links/:id", "LinkController.update");
+  Route.delete("/links/:id", "LinkController.destroy");
+
+  //question resource route only index,store,show,update and destroy method
+  Route.get("/questions", "QuestionController.index");
+  Route.post("/questions", "QuestionController.store");
+  Route.get("/questions/:id", "QuestionController.show");
+  Route.put("/questions/:id", "QuestionController.update");
+  Route.delete("/questions/:id", "QuestionController.destroy");
+
+  //replay resource route only index,store,show,update and destroy method
+  Route.get("/replays", "ReplayController.index");
+  Route.post("/replays", "ReplayController.store");
+  Route.get("/replays/:id", "ReplayController.show");
+  Route.put("/replays/:id", "ReplayController.update");
+  Route.delete("/replays/:id", "ReplayController.destroy");
+
+  //user resource route only index,store,show,update and destroy method
+  Route.get("/users", "UserController.index");
+  Route.post("/users", "UserController.store");
+  Route.get("/users/:id", "UserController.show");
+  Route.put("/users/:id", "UserController.update");
+  Route.delete("/users/:id", "UserController.destroy");
+
+  //video resource route only index,store,show,update and destroy method
+  Route.get("/videos", "VideoController.index");
+  Route.post("/videos", "VideoController.store");
+  Route.get("/videos/:id", "VideoController.show");
+  Route.put("/videos/:id", "VideoController.update");
+  Route.delete("/videos/:id", "VideoController.destroy");
 })
   .namespace("Api")
   .prefix("api/v1");

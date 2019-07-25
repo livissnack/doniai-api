@@ -4,16 +4,16 @@
 const Model = use("Model");
 
 class Article extends Model {
-  user() {
-    return this.belongsTo("App/Models/User");
+  user () {
+    return this.belongsTo('App/Models/User')
   }
 
-  articleType() {
-    return this.belongsTo("App/Models/ArticleType");
+  articleType () {
+    return this.belongsTo('App/Models/ArticleType')
   }
 
-  articleTag() {
-    return this.belongsTo("App/Models/ArticleTag");
+  articleTag () {
+    return this.belongsTo('App/Models/ArticleTag')
   }
 }
 

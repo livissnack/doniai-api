@@ -43,8 +43,8 @@ Factory.blueprint('App/Models/Article', (faker) => {
     return {
         title: faker.sentence(),
         user_id: faker.integer({ min: 1, max: 100 }),
-        type_id: faker.integer({ min: 1, max: 10 }),
-        tag_id: faker.integer({ min: 1, max: 30 }),
+        article_type_id: faker.integer({ min: 1, max: 10 }),
+        article_tag_id: faker.integer({ min: 1, max: 30 }),
         content: faker.paragraph(),
         image: faker.url({extensions: ['jpg', 'png']}),
         publish_at: formatDate(new Date())
@@ -94,7 +94,7 @@ Factory.blueprint('App/Models/Course', (faker) => {
         image: faker.url({extensions: ['jpg', 'png']}),
         discuss_qq_group: faker.string({ pool: '499324462' }),
         support_wechat: faker.string({ pool: 'wei_23239231321' }),
-        type_id: faker.integer({ min: 1, max: 10 }),
+        course_type_id: faker.integer({ min: 1, max: 10 }),
         status: faker.integer({ min: 0, max: 1 }),
         is_free: faker.integer({ min: 0, max: 1 }),
         price: faker.integer({ min: 100, max: 1000 }),
@@ -116,7 +116,7 @@ Factory.blueprint('App/Models/Question', (faker) => {
 
 Factory.blueprint('App/Models/Replay', (faker) => {
     return {
-        qid: faker.integer({ min: 1, max: 100 }),
+        question_id: faker.integer({ min: 1, max: 100 }),
         pid: faker.integer({ min: 1, max: 100 }),
         user_id: faker.integer({ min: 1, max: 100 }),
         content: faker.sentence(),

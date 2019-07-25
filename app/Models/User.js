@@ -34,6 +34,32 @@ class User extends Model {
   tokens() {
     return this.hasMany("App/Models/Token");
   }
+
+  articles () {
+    return this.hasMany('App/Models/Article', 'id', 'user_id')
+  }
+
+  /**
+   * A relationship on comments is requird.
+   *
+   * @method comments
+   *
+   * @return {Object}
+   */
+  comments () {
+    return this.hasMany('App/Models/Comment', 'id', 'user_id')
+  }
+
+  /**
+   * A relationship on questions is required.
+   *
+   * @method questions
+   *
+   * @return {Object}
+   */
+  questions () {
+    return this.hasMany('App/Models/Question', 'id', 'user_id')
+  }
 }
 
 module.exports = User;
