@@ -5,7 +5,7 @@ const AliOss = use("ali-oss");
 const Helpers = use("Helpers");
 const Book = use("App/Models/Book");
 const ossConfig = Config.get("oss.ali");
-const { formatDate, isEmpty } = require("../../../Utils/Helpers");
+const { formatDate, isEmpty, searchWhere } = require("../../../Utils/Helpers");
 
 class BookController {
   async index({ request, response }) {

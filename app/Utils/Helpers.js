@@ -244,5 +244,26 @@ module.exports = {
     return (
       value === null || value === "" || value === undefined || value === {}
     );
-  }
+  },
+
+  searchWhere(obj) {
+    console.log(obj)
+    if (typeof obj === "object" || typeof obj === "function" || obj !== null) {
+      let iWhere = {};
+      for (let prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+          console.log(prop, obj['prop']);
+          Object.assign(iWhere, {prop: obj['prop']});
+        }
+      }
+      return iWhere;
+    }else {
+      throw new Error("data not object");
+    }
+  },
+
+   isObject(value) {
+      const type = typeof value;
+      return value != null && (type === 'object' || type === 'function');
+   }
 };
