@@ -1,18 +1,39 @@
 "use strict";
+
 const Config = use("Config");
 const AliOss = use("ali-oss");
 const Helpers = use("Helpers");
 const ossConfig = Config.get("oss.ali");
 const Course = use("App/Models/Course");
-const { formatDate } = require("../../../Utils/Helpers");
+const CourseType = use("App/Models/CourseType");
+const { formatDate, isEmpty } = require("../../../Utils/Helpers");
 
 class CourseController {
   async index({ request, response }) {
-    const { page, pageSize } = request.only(["page", "pageSize"]);
-    const isFree = request.input("is_free", 0);
-    const status = request.input("status", 0);
-    const iWhere = { is_free: isFree, status: status };
     try {
+      const { page, pageSize } = request.only(["page", "pageSize"]);
+      let iWhere = {};
+      const course_type = request.input("course_type");
+      if (!isEmpty(course_type)) {
+        const courseTypeData = await CourseType.findBy("value", course_type);
+        Object.assign(iWhere, { course_type_id: courseTypeData.id });
+      }
+      const title = request.input("title");
+      if (!isEmpty(title)) {
+        Object.assign(iWhere, { title: title });
+      }
+      const status = request.input("status");
+      if (!isEmpty(status)) {
+        Object.assign(iWhere, { status: status });
+      }
+      const is_free = request.input("is_free");
+      if (!isEmpty(is_free)) {
+        Object.assign(iWhere, { is_free: is_free });
+      }
+      const price = request.input("price");
+      if (!isEmpty(price)) {
+        Object.assign(iWhere, { price: price });
+      }
       const data = await Course.query()
         .where(iWhere)
         .with("courseType")

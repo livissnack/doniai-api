@@ -1,4 +1,5 @@
 "use strict";
+
 const Config = use("Config");
 const qs = use("querystring");
 const banwaConfig = Config.get("banwa.config");

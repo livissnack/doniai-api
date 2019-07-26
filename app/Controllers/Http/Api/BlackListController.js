@@ -1,13 +1,23 @@
-'use strict'
+"use strict";
+
 const BlackList = use("App/Models/BlackList");
+const { isEmpty } = require("../../../Utils/Helpers");
 
 class BlackListController {
-  async index({request, response}) {
-    const {page, pageSize} = request.only(['page', 'pageSize']);
-    const ip = request.input('ip', '');
+  async index({ request, response }) {
     try {
+      const { page, pageSize } = request.only(["page", "pageSize"]);
+      let iWhere = {};
+      const ip = request.input("ip");
+      if (!isEmpty(ip)) {
+        Object.assign(iWhere, { ip: ip });
+      }
+      const status = request.input("status");
+      if (!isEmpty(status)) {
+        Object.assign(iWhere, { status: status });
+      }
       const data = await BlackList.query()
-        .where('ip', ip)
+        .where(iWhere)
         .paginate(page, pageSize);
       return response.json({
         status: "success",
@@ -23,8 +33,13 @@ class BlackListController {
     }
   }
 
-  async store({request, response}) {
-    const data = request.only(['ip', 'status', 'release_start_time', 'release_end_time']);
+  async store({ request, response }) {
+    const data = request.only([
+      "ip",
+      "status",
+      "release_start_time",
+      "release_end_time"
+    ]);
     try {
       const blackList = new BlackList();
       blackList.fill(data);
@@ -43,8 +58,8 @@ class BlackListController {
     }
   }
 
-  async show({params, response}) {
-    const {id} = params;
+  async show({ params, response }) {
+    const { id } = params;
     try {
       const data = await BlackList.query()
         .where("id", id)
@@ -63,11 +78,18 @@ class BlackListController {
     }
   }
 
-  async update({params, request, response}) {
-    const {id} = params;
-    const data = request.only(['ip', 'status', 'release_start_time', 'release_end_time']);
+  async update({ params, request, response }) {
+    const { id } = params;
+    const data = request.only([
+      "ip",
+      "status",
+      "release_start_time",
+      "release_end_time"
+    ]);
     try {
-      const result = await BlackList.query().where('id', id).update(data);
+      const result = await BlackList.query()
+        .where("id", id)
+        .update(data);
       return response.json({
         status: "success",
         msg: "黑名单数据修改成功",
@@ -80,11 +102,10 @@ class BlackListController {
         data: error.toString()
       });
     }
-
   }
 
-  async destroy({params, response}) {
-    const {id} = params;
+  async destroy({ params, response }) {
+    const { id } = params;
     try {
       const book = await BlackList.find(id);
       const result = await book.delete();
@@ -103,4 +124,4 @@ class BlackListController {
   }
 }
 
-module.exports = BlackListController
+module.exports = BlackListController;

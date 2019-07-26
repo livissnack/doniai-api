@@ -1,13 +1,14 @@
 "use strict";
+
 const Mail = use("Mail");
-const User = use("App/Models/User");
-const RandomAvatar = use("random-avatar");
-const RandomName = use("username-generator");
 const Config = use("Config");
 const AliOss = use("ali-oss");
 const Helpers = use("Helpers");
+const User = use("App/Models/User");
 const ossConfig = Config.get("oss.ali");
-const { formatDate } = require("../../../Utils/Helpers");
+const RandomAvatar = use("random-avatar");
+const RandomName = use("username-generator");
+const { formatDate, isEmpty } = require("../../../Utils/Helpers");
 
 class UserController {
   /**
@@ -116,16 +117,75 @@ class UserController {
     });
   }
 
-
-
   async index({ request, response }) {
-    const { page, pageSize } = request.only(["page", "pageSize"]);
-    const username = request.input("username", 0);
-    const iWhere = { username: username };
     try {
+      const { page, pageSize } = request.only(["page", "pageSize"]);
+      let iWhere = {};
+      const username = request.input("username");
+      if (!isEmpty(username)) {
+        Object.assign(iWhere, { username: username });
+      }
+      const nikename = request.input("nikename");
+      if (!isEmpty(nikename)) {
+        Object.assign(iWhere, { nikename: nikename });
+      }
+      const email = request.input("email");
+      if (!isEmpty(email)) {
+        Object.assign(iWhere, { email: email });
+      }
+
+      const phone = request.input("phone");
+      if (!isEmpty(phone)) {
+        Object.assign(iWhere, { phone: phone });
+      }
+
+      const githup = request.input("githup");
+      if (!isEmpty(githup)) {
+        Object.assign(iWhere, { githup: githup });
+      }
+
+      const sina = request.input("sina");
+      if (!isEmpty(sina)) {
+        Object.assign(iWhere, { sina: sina });
+      }
+
+      const access_nums = request.input("access_nums");
+      if (!isEmpty(access_nums)) {
+        Object.assign(iWhere, { access_nums: access_nums });
+      }
+
+      const empiric_value = request.input("empiric_value");
+      if (!isEmpty(empiric_value)) {
+        Object.assign(iWhere, { empiric_value: empiric_value });
+      }
+
+      const status = request.input("status");
+      if (!isEmpty(status)) {
+        Object.assign(iWhere, { status: status });
+      }
+
+      const type = request.input("type");
+      if (!isEmpty(type)) {
+        Object.assign(iWhere, { type: type });
+      }
+
+      const website = request.input("website");
+      if (!isEmpty(website)) {
+        Object.assign(iWhere, { website: website });
+      }
+
+      const referral_code = request.input("referral_code");
+      if (!isEmpty(referral_code)) {
+        Object.assign(iWhere, { referral_code: referral_code });
+      }
+
+      const avatar = request.input("avatar");
+      if (!isEmpty(avatar)) {
+        Object.assign(iWhere, { avatar: avatar });
+      }
       const data = await User.query()
-          .where(iWhere)
-          .paginate(page, pageSize);
+        .where(iWhere)
+        .paginate(page, pageSize);
       return response.json({
         status: "success",
         msg: "用户列表数据获取成功",
@@ -157,8 +217,14 @@ class UserController {
       "alipay_receipt_qr"
     ]);
     const avatar = request.file("avatar", { types: ["image"], size: "2mb" });
-    const wechat_receipt_qr = request.file("wechat_receipt_qr", { types: ["image"], size: "2mb" });
-    const alipay_receipt_qr = request.file("alipay_receipt_qr", { types: ["image"], size: "2mb" });
+    const wechat_receipt_qr = request.file("wechat_receipt_qr", {
+      types: ["image"],
+      size: "2mb"
+    });
+    const alipay_receipt_qr = request.file("alipay_receipt_qr", {
+      types: ["image"],
+      size: "2mb"
+    });
     try {
       const avatarpath = await avatar.move(Helpers.tmpPath("uploads"), {
         name: avatar.clientName,
@@ -166,30 +232,33 @@ class UserController {
       });
       const store1 = AliOss(ossConfig);
       const ossPutAvatarObj = await store1.put(
-          `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-              avatarpath.clientName
-              }`,
-          avatarpath
+        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
+          avatarpath.clientName
+        }`,
+        avatarpath
       );
       const ossObjAvatarUrl = await store1.getObjectUrl(
-          ossPutAvatarObj.name,
-          Config.get("oss.cdn").domian
+        ossPutAvatarObj.name,
+        Config.get("oss.cdn").domian
       );
 
-      const wechatqrpath = await wechat_receipt_qr.move(Helpers.tmpPath("uploads"), {
-        name: wechat_receipt_qr.clientName,
-        overwrite: true
-      });
+      const wechatqrpath = await wechat_receipt_qr.move(
+        Helpers.tmpPath("uploads"),
+        {
+          name: wechat_receipt_qr.clientName,
+          overwrite: true
+        }
+      );
       const store2 = AliOss(ossConfig);
       const ossPutWechatQrObj = await store2.put(
-          `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-              wechatqrpath.clientName
-              }`,
-          wechatqrpath
+        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
+          wechatqrpath.clientName
+        }`,
+        wechatqrpath
       );
       const ossObjWechatQrUrl = await store2.getObjectUrl(
-          ossPutWechatQrObj.name,
-          Config.get("oss.cdn").domian
+        ossPutWechatQrObj.name,
+        Config.get("oss.cdn").domian
       );
 
       const user = new User();
@@ -215,8 +284,8 @@ class UserController {
     const { id } = params;
     try {
       const data = await User.query()
-          .where("id", id)
-          .fetch();
+        .where("id", id)
+        .fetch();
       return response.json({
         status: "success",
         msg: "用户数据获取成功",
@@ -250,8 +319,8 @@ class UserController {
     ]);
     try {
       const result = await User.query()
-          .where("id", id)
-          .update(data);
+        .where("id", id)
+        .update(data);
       return response.json({
         status: "success",
         msg: "用户数据修改成功",

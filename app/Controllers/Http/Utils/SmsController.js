@@ -1,4 +1,5 @@
 "use strict";
+
 const Config = use("Config");
 const sms = use("@alicloud/pop-core");
 const smsConfig = Config.get("sms.ali");

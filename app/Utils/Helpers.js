@@ -8,7 +8,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const crypto = require('crypto');
+const crypto = require("crypto");
 const moment = require("moment");
 const cheerio = require("cheerio");
 const superagent = require("superagent");
@@ -200,34 +200,49 @@ module.exports = {
   /**
    * @method md5
    * md5 crypto
-   * @param {content} string 
-   * @param {salt} string 
+   * @param {content} string
+   * @param {salt} string
    */
-  md5(content, salt="doniai") {
-    return crypto.createHash("md5").update(content+salt).digest("hex");
+  md5(content, salt = "doniai") {
+    return crypto
+      .createHash("md5")
+      .update(content + salt)
+      .digest("hex");
   },
 
   /**
    * @method hash
    * hash crypto
-   * @param {content} string 
-   * @param {salt} string 
+   * @param {content} string
+   * @param {salt} string
    */
-  hash(content, salt="doniai") {
-    return crypto.createHash("sha256").update(content+salt).digest("hex");
+  hash(content, salt = "doniai") {
+    return crypto
+      .createHash("sha256")
+      .update(content + salt)
+      .digest("hex");
   },
 
   /**
    * @method randomFileName
    * 生成md5加密文件名称
-   * @param {file} filePath 
+   * @param {file} filePath
    */
   securtFileName(file) {
-    if(!fs.existsSync(file)){
+    if (!fs.existsSync(file)) {
       throw new Error("file not found");
     }
     const extname = path.extname(file);
-    const filename = path.basename(file).split('.')[0];
-    return `${crypto.createHash("md5").update(filename).digest("hex")}${extname}`;
+    const filename = path.basename(file).split(".")[0];
+    return `${crypto
+      .createHash("md5")
+      .update(filename)
+      .digest("hex")}${extname}`;
+  },
+
+  isEmpty(value) {
+    return (
+      value === null || value === "" || value === undefined || value === {}
+    );
   }
-}
+};
