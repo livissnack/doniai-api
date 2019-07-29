@@ -247,8 +247,7 @@ module.exports = {
   },
 
   searchWhere(obj) {
-    console.log(obj)
-    if (typeof obj === "object" || typeof obj === "function" || obj !== null) {
+    if (_.isObject(obj) && !_.isEmpty(obj)) {
       let iWhere = {};
       for (let prop in obj) {
         if (obj.hasOwnProperty(prop)) {
@@ -257,13 +256,8 @@ module.exports = {
         }
       }
       return iWhere;
-    }else {
+    } else {
       throw new Error("data not object");
     }
   },
-
-   isObject(value) {
-      const type = typeof value;
-      return value != null && (type === 'object' || type === 'function');
-   }
 };
