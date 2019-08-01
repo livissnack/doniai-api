@@ -140,7 +140,7 @@ Route.group(() => {
   Route.get("/getBucketLog", "OssController.getBucketLog");
   Route.delete("/deleteBucketLog", "OssController.deleteBucketLog");
   Route.put("/putBucketWebsite", "OssController.putBucketWebsite");
-  Route.put("/put", "OssController.put");
+  Route.post("/put", "OssController.put");
   Route.put("/putStream", "OssController.putStream");
   Route.post("/append", "OssController.append");
   Route.get("/getObjectUrl", "OssController.getObjectUrl");

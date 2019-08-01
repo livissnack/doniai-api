@@ -160,15 +160,16 @@ class OssController {
    */
   async put({ request }) {
     let filepath = request.file("file");
-    const type = request.input("type", "file");
+    const type = request.input("type", "stream");
+    var uploadObj = {};
     if (type === "buffer") {
-      filepath = new Buffer(filepath);
+      uploadObj = new Buffer(filepath);
     }
     if (type === "stream") {
-      filepath = fs.createReadStream(filepath);
+      uploadObj = fs.createReadStream(filepath);
     }
     const store = AliOss(ossConfig);
-    const result = await store.put(`uploads/${filepath.clientName}`, filepath);
+    const result = await store.put(`uploads/${filepath.clientName}`, uploadObj);
     return result;
   }
 
