@@ -1,11 +1,7 @@
 "use strict";
 
-const Config = use("Config");
-const AliOss = use("ali-oss");
-const Helpers = use("Helpers");
 const Book = use("App/Models/Book");
-const ossConfig = Config.get("oss.ali");
-const { formatDate, isEmpty, searchWhere } = require("../../../Utils/Helpers");
+const { isEmpty } = require("../../../Utils/Helpers");
 
 class BookController {
   async index({ request, response }) {
@@ -38,27 +34,10 @@ class BookController {
   }
 
   async store({ request, response }) {
-    const data = request.only(["name", "intro", "is_recommend"]);
-    const image = request.file("image", { types: ["image"], size: "2mb" });
+    const data = request.only(["name", "intro", "is_recommend", "image"]);
     try {
-      const filepath = await image.move(Helpers.tmpPath("uploads"), {
-        name: image.clientName,
-        overwrite: true
-      });
-      const store = AliOss(ossConfig);
-      const ossPutObj = await store.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          filepath.clientName
-        }`,
-        filepath
-      );
-      const ossObjUrl = await store.getObjectUrl(
-        ossPutObj.name,
-        Config.get("oss.cdn").domian
-      );
       const book = new Book();
       book.fill(data);
-      book.merge(book, ossObjUrl);
       const result = await book.save();
       return response.json({
         status: "success",

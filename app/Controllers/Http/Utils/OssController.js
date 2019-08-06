@@ -11,6 +11,10 @@ const ossClusterConfig = Config.get("oss.ali_cluster");
  * all ali-oss operations
  */
 class OssController {
+  async getBucketConfig() {
+    return ossConfig;
+  }
+  
   /**
    * query buckets list
    * @param {request} query options

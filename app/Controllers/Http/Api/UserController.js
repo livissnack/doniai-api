@@ -1,14 +1,10 @@
 "use strict";
 
 const Mail = use("Mail");
-const Config = use("Config");
-const AliOss = use("ali-oss");
-const Helpers = use("Helpers");
 const User = use("App/Models/User");
-const ossConfig = Config.get("oss.ali");
 const RandomAvatar = use("random-avatar");
 const RandomName = use("username-generator");
-const { formatDate, isEmpty } = require("../../../Utils/Helpers");
+const { isEmpty } = require("../../../Utils/Helpers");
 
 class UserController {
   /**
@@ -216,55 +212,9 @@ class UserController {
       "wechat_receipt_qr",
       "alipay_receipt_qr"
     ]);
-    const avatar = request.file("avatar", { types: ["image"], size: "2mb" });
-    const wechat_receipt_qr = request.file("wechat_receipt_qr", {
-      types: ["image"],
-      size: "2mb"
-    });
-    const alipay_receipt_qr = request.file("alipay_receipt_qr", {
-      types: ["image"],
-      size: "2mb"
-    });
     try {
-      const avatarpath = await avatar.move(Helpers.tmpPath("uploads"), {
-        name: avatar.clientName,
-        overwrite: true
-      });
-      const store1 = AliOss(ossConfig);
-      const ossPutAvatarObj = await store1.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          avatarpath.clientName
-        }`,
-        avatarpath
-      );
-      const ossObjAvatarUrl = await store1.getObjectUrl(
-        ossPutAvatarObj.name,
-        Config.get("oss.cdn").domian
-      );
-
-      const wechatqrpath = await wechat_receipt_qr.move(
-        Helpers.tmpPath("uploads"),
-        {
-          name: wechat_receipt_qr.clientName,
-          overwrite: true
-        }
-      );
-      const store2 = AliOss(ossConfig);
-      const ossPutWechatQrObj = await store2.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          wechatqrpath.clientName
-        }`,
-        wechatqrpath
-      );
-      const ossObjWechatQrUrl = await store2.getObjectUrl(
-        ossPutWechatQrObj.name,
-        Config.get("oss.cdn").domian
-      );
-
       const user = new User();
       user.fill(data);
-      user.merge(user, ossObjAvatarUrl);
-      user.merge(user, ossObjWechatQrUrl);
       const result = await user.save();
       return response.json({
         status: "success",

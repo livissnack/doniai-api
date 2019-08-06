@@ -127,6 +127,7 @@ Route.group(() => {
 |
 */
 Route.group(() => {
+  Route.get('/getBucketConfig', "OssController.getBucketConfig")
   //oss bucket operations
   Route.get("/listBuckets", "OssController.listBuckets");
   Route.put("/putBucket", "OssController.putBucket");

@@ -1,14 +1,10 @@
 "use strict";
 
-const Config = use("Config");
-const AliOss = use("ali-oss");
-const Helpers = use("Helpers");
 const User = use("App/Models/User");
-const ossConfig = Config.get("oss.ali");
 const Article = use("App/Models/Article");
 const ArticleTag = use("App/Models/ArticleTag");
 const ArticleType = use("App/Models/ArticleType");
-const { isEmpty, formatDate } = require("../../../Utils/Helpers");
+const { isEmpty } = require("../../../Utils/Helpers");
 
 class ArticleController {
   async index({ request, response }) {
@@ -53,6 +49,7 @@ class ArticleController {
   async store({ request, response }) {
     const data = request.only([
       "title",
+      "image",
       "user_id",
       "article_type_id",
       "article_tag_id",
@@ -61,24 +58,8 @@ class ArticleController {
     const image = request.file("image", { types: ["image"], size: "2mb" });
     const publish_at = request.input("publish_at", new Date().getTime());
     try {
-      const filepath = await image.move(Helpers.tmpPath("uploads"), {
-        name: image.clientName,
-        overwrite: true
-      });
-      const store = AliOss(ossConfig);
-      const ossPutObj = await store.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          filepath.clientName
-        }`,
-        filepath
-      );
-      const ossObjUrl = await store.getObjectUrl(
-        ossPutObj.name,
-        Config.get("oss.cdn").domian
-      );
       const article = new Article();
       article.fill(data);
-      article.merge(article, ossObjUrl);
       article.merge(article, publish_at);
       const result = await article.save();
       return response.json({

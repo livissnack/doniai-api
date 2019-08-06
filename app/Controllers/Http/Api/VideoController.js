@@ -1,11 +1,7 @@
 "use strict";
 
-const Config = use("Config");
-const AliOss = use("ali-oss");
-const Helpers = use("Helpers");
 const Video = use("App/Models/Video");
-const ossConfig = Config.get("oss.ali");
-const { formatDate, isEmpty } = require("../../../Utils/Helpers");
+const { isEmpty } = require("../../../Utils/Helpers");
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 
@@ -92,26 +88,9 @@ class VideoController {
       "status",
       "is_free"
     ]);
-    const image = request.file("image", { types: ["image"], size: "2mb" });
     try {
-      const filepath = await image.move(Helpers.tmpPath("uploads"), {
-        name: image.clientName,
-        overwrite: true
-      });
-      const store = AliOss(ossConfig);
-      const ossPutObj = await store.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          filepath.clientName
-        }`,
-        filepath
-      );
-      const ossObjUrl = await store.getObjectUrl(
-        ossPutObj.name,
-        Config.get("oss.cdn").domian
-      );
       const video = new Video();
       video.fill(data);
-      video.merge(video, ossObjUrl);
       const result = await video.save();
       return response.json({
         status: "success",

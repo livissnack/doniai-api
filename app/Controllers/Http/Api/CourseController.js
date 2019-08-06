@@ -1,12 +1,8 @@
 "use strict";
 
-const Config = use("Config");
-const AliOss = use("ali-oss");
-const Helpers = use("Helpers");
-const ossConfig = Config.get("oss.ali");
 const Course = use("App/Models/Course");
 const CourseType = use("App/Models/CourseType");
-const { formatDate, isEmpty } = require("../../../Utils/Helpers");
+const { isEmpty } = require("../../../Utils/Helpers");
 
 class CourseController {
   async index({ request, response }) {
@@ -61,28 +57,12 @@ class CourseController {
       "course_type_id",
       "course_status",
       "is_free",
-      "price"
+      "price",
+      "image"
     ]);
-    const image = request.file("image", { types: ["image"], size: "2mb" });
     try {
-      const filepath = await image.move(Helpers.tmpPath("uploads"), {
-        name: image.clientName,
-        overwrite: true
-      });
-      const store = AliOss(ossConfig);
-      const ossPutObj = await store.put(
-        `uploads/${formatDate(new Date(), "YYYY-MM-DD")}/${
-          filepath.clientName
-        }`,
-        filepath
-      );
-      const ossObjUrl = await store.getObjectUrl(
-        ossPutObj.name,
-        Config.get("oss.cdn").domian
-      );
       const course = new Course();
       course.fill(data);
-      course.merge(course, ossObjUrl);
       const result = await course.save();
       return response.json({
         status: "success",
