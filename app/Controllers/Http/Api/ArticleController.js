@@ -4,7 +4,7 @@ const User = use("App/Models/User");
 const Article = use("App/Models/Article");
 const ArticleTag = use("App/Models/ArticleTag");
 const ArticleType = use("App/Models/ArticleType");
-const { isEmpty } = require("../../../Utils/Helpers");
+const { isEmpty, formatDate } = require("../../../Utils/Helpers");
 
 class ArticleController {
   async index({ request, response }) {
@@ -55,11 +55,10 @@ class ArticleController {
       "article_tag_id",
       "content"
     ]);
-    const publish_at = request.input("publish_at", new Date().getTime());
     try {
       const article = new Article();
       article.fill(data);
-      article.merge(article, publish_at);
+      article.merge({ publish_at: formatDate(new Date()) })
       const result = await article.save();
       return response.json({
         status: "success",
