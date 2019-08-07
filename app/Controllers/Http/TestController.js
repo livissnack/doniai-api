@@ -1,9 +1,7 @@
 "use strict";
 
-const fs = require("fs");
 const {
   formatDate,
-  httpApiPath,
   utilsPath,
   securtFileName
 } = require("../../Utils/Helpers");
