@@ -55,7 +55,6 @@ class ArticleController {
       "article_tag_id",
       "content"
     ]);
-    const image = request.file("image", { types: ["image"], size: "2mb" });
     const publish_at = request.input("publish_at", new Date().getTime());
     try {
       const article = new Article();
