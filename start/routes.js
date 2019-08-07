@@ -119,7 +119,7 @@ Route.group(() => {
 
 /*
 |--------------------------------------------------------------------------
-| Routes ali oss bucket
+| Routes get alioss bucket config
 |--------------------------------------------------------------------------
 |
 | Http routes are entry points to your web application. You can create
@@ -128,57 +128,6 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/getBucketConfig', "OssController.getBucketConfig")
-  //oss bucket operations
-  Route.get("/listBuckets", "OssController.listBuckets");
-  Route.put("/putBucket", "OssController.putBucket");
-  Route.delete("/deleteBucket", "OssController.deleteBucket");
-  Route.get("/useBucket", "OssController.useBucket");
-  Route.get("/getBucketInfo", "OssController.getBucketInfo");
-  Route.get("/getBucketLocation", "OssController.getBucketLocation");
-  Route.put("/putBucketAcl", "OssController.putBucketAcl");
-  Route.get("/getBucketAcl", "OssController.getBucketAcl");
-  Route.put("/putBucketLog", "OssController.putBucketLog");
-  Route.get("/getBucketLog", "OssController.getBucketLog");
-  Route.delete("/deleteBucketLog", "OssController.deleteBucketLog");
-  Route.put("/putBucketWebsite", "OssController.putBucketWebsite");
-  Route.post("/put", "OssController.put");
-  Route.put("/putStream", "OssController.putStream");
-  Route.post("/append", "OssController.append");
-  Route.get("/getObjectUrl", "OssController.getObjectUrl");
-  Route.get("/generateObjectUrl", "OssController.generateObjectUrl");
-  Route.get("/get", "OssController.get");
-  Route.get("/getStream", "OssController.getStream");
-  Route.delete("/delete", "OssController.delete");
-  Route.post("/copy", "OssController.copy");
-  Route.put("/putMeta", "OssController.putMeta");
-  Route.delete("/deleteMulti", "OssController.deleteMulti");
-  Route.get("/list", "OssController.list");
-  Route.get("/signatureUrl", "OssController.signatureUrl");
-  Route.put("/putACL", "OssController.putACL");
-  Route.get("/getACL", "OssController.getACL");
-  Route.post("/restore", "OssController.restore");
-  Route.post("/initMultipartUpload", "OssController.initMultipartUpload");
-  Route.post("/uploadPart", "OssController.uploadPart");
-  Route.post("/uploadPartCopy", "OssController.uploadPartCopy");
-  Route.post(
-    "/completeMultipartUpload",
-    "OssController.completeMultipartUpload"
-  );
-  Route.post("/multipartUpload", "OssController.multipartUpload");
-  Route.post("/multipartUploadCopy", "OssController.multipartUploadCopy");
-  Route.get("/listParts", "OssController.listParts");
-  Route.get("/listUploads", "OssController.listUploads");
-  Route.get("/abortMultipartUpload", "OssController.abortMultipartUpload");
-  Route.put("/putChannel", "OssController.putChannel");
-  Route.get("/getChannel", "OssController.getChannel");
-  Route.delete("/deleteChannel", "OssController.deleteChannel");
-  Route.put("/putChannelStatus", "OssController.putChannelStatus");
-  Route.get("/getChannelStatus", "OssController.getChannelStatus");
-  Route.get("/listChannels", "OssController.listChannels");
-  Route.get("/getChannelHistory", "OssController.getChannelHistory");
-  Route.post("/createVod", "OssController.createVod");
-  Route.get("/getRtmpUrl", "OssController.getRtmpUrl");
-  Route.get("/getImg", "OssController.getImg");
 })
   .namespace("Utils")
   .prefix("api/v1/oss");
