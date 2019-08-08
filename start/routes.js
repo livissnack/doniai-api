@@ -21,6 +21,7 @@ Route.get("/encrypt", "TestController.encrypt");
 Route.get("/decrypt", "TestController.decrypt");
 Route.get("/download", "TestController.download");
 Route.get("/attachment", "TestController.attachment");
+Route.get("/baidu", "TestController.filterText");
 
 /*
 |--------------------------------------------------------------------------

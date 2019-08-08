@@ -65,6 +65,42 @@ module.exports = {
   },
 
   /**
+   * 获取百度Ai的access token
+   * @param {url} string
+   */
+  getBaiduAiAccessToken(url) {
+    return new Promise((resolve, reject) => {
+      superagent.get(url).end((err, res) => {
+        if (err) {
+          console.log(err);
+          reject(`数据获取失败 - ${err}`);
+        } else {
+          resolve({ status: "ok", data: JSON.parse(res.text) });
+        }
+      });
+    });
+  },
+
+  /**
+   * http post request
+   * @param {url} string 
+   * @param {data} object 
+   * @param {headers} object 
+   */
+  httpPost(url, data, headers) {
+    return new Promise((resolve, reject) => {
+      superagent.post(url).send(data).set(headers).end((err, res) => {
+        if (err) {
+          console.log(err);
+          reject(`数据获取失败 - ${err}`);
+        } else {
+          resolve({ status: "ok", data: (JSON.parse(res.text)).result });
+        }
+      });
+    });
+  },
+
+  /**
    * @method parseBaiduHotNews
    * 解析百度热门新闻
    * @param {html} data
