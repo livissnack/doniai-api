@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 Route.get("/", () => "Hello world");
-Route.get("/test", "TestController.test");
+Route.get("/test", "TicketController.test");
 Route.get("/encrypt", "TestController.encrypt");
 Route.get("/decrypt", "TestController.decrypt");
 Route.get("/download", "TestController.download");
@@ -234,3 +234,23 @@ Route.group(() => {
 })
   .namespace("Utils")
   .prefix("api/v1/email");
+
+/*
+|--------------------------------------------------------------------------
+| Routes send email
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.get("/query", "TicketController.query");
+  Route.get("/price", "TicketController.price");
+  Route.get("/order", "TicketController.order");
+  Route.get("/login", "TicketController.login");
+  Route.get("/check", "TicketController.check");
+  Route.get("/station", "TicketController.station");
+})
+  .namespace("Utils")
+  .prefix("api/v1/ticket");

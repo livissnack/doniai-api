@@ -16,6 +16,16 @@ const qs = require("querystring");
 
 class TestController {
   async test({ request, response }) {
+    const data = [{handicap_id: 1, status: 1}, {handicap_id: 2, status: 2}];
+    _.forEach(data, (value, key) => {
+      if(_.has(value, findKey)) {
+        return;
+      }else{
+        PushManager;
+      }
+    })
+
+
     const time = new Date();
     return formatDate(time);
   }
