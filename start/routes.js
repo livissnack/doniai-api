@@ -247,6 +247,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get("/query", "TicketController.query");
   Route.get("/price", "TicketController.price");
+  Route.get("/train", "TicketController.train");
   Route.get("/order", "TicketController.order");
   Route.get("/login", "TicketController.login");
   Route.get("/check", "TicketController.check");
