@@ -12,7 +12,7 @@ module.exports = {
   | define a driver too.
   |
   */
-  connection: Env.get('MAIL_CONNECTION', 'smtp'),
+  connection: Env.get('MAIL_CONNECTION', 'mailgun'),
 
   /*
   |--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ module.exports = {
   |
   | Here we define configuration for mailgun. Extra options can be defined
   | inside the `extra` object.
-  |
+  | smtp credentials 764e4409085cb6aa8a992de80ee5ec42-4167c382-e5b54420
   | https://mailgun-documentation.readthedocs.io/en/latest/api-sending.html#sending
   |
   | extras: {
