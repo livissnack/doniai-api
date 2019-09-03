@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 Route.get("/", () => "Hello world");
-Route.get("/test", "TicketController.test");
+Route.get("/test", "TestController.test");
 Route.get("/encrypt", "TestController.encrypt");
 Route.get("/decrypt", "TestController.decrypt");
 Route.get("/download", "TestController.download");
