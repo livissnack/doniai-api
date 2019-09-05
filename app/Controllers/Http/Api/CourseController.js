@@ -32,7 +32,7 @@ class CourseController {
       }
       const data = await Course.query()
         .where(iWhere)
-        .with("courseType")
+        .with("courseType", "courseLongtime")
         .paginate(page, pageSize);
       return response.json({
         status: "success",
