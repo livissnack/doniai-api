@@ -16,9 +16,7 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: (currentOrigin) => {
-    return currentOrigin === 'www.doniai.com';
-  },
+  origin: ['https://www.doniai.com', 'https://hspx.doniai.com'],
 
   /*
   |--------------------------------------------------------------------------
