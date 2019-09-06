@@ -59,7 +59,7 @@ Factory.blueprint('App/Models/Article', (faker) => {
 Factory.blueprint('App/Models/ArticleTag', (faker) => {
     return {
         value: faker.unique(faker.state, 1),
-        article_tag_id: faker.integer({ min: 1, max: 10 }),
+        article_id: faker.integer({ min: 1, max: 10 }),
     }
 })
 
@@ -77,7 +77,7 @@ Factory.blueprint('App/Models/Comment', (faker) => {
 Factory.blueprint('App/Models/ArticleType', (faker) => {
     return {
         value: faker.word(),
-        article_type_id: faker.integer({ min: 1, max: 10 }),
+        article_id: faker.integer({ min: 1, max: 10 }),
     }
 })
 

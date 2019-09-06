@@ -21,6 +21,8 @@ class QuestionController {
       const data = await Question.query()
         .where(iWhere)
         .with("user")
+        .with("questionTag")
+        .with("questionType")
         .paginate(page, pageSize);
       return response.json({
         status: "success",

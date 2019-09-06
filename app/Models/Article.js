@@ -9,11 +9,11 @@ class Article extends Model {
   }
 
   articleType () {
-    return this.belongsTo('App/Models/ArticleType')
+    return this.hasMany('App/Models/ArticleType')
   }
 
   articleTag () {
-    return this.belongsTo('App/Models/ArticleTag')
+    return this.hasMany('App/Models/ArticleTag')
   }
 }
 

@@ -7,6 +7,14 @@ class Question extends Model {
     user() {
         return this.belongsTo("App/Models/User");
     }
+
+    questionType () {
+      return this.hasMany('App/Models/QuestionType')
+    }
+  
+    questionTag () {
+      return this.hasMany('App/Models/QuestionTag')
+    }
 }
 
 module.exports = Question;

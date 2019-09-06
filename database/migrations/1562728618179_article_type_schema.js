@@ -8,7 +8,7 @@ class ArticleTypeSchema extends Schema {
     this.create('article_types', (table) => {
       table.increments()
       table.string('value', 40).notNullable().unique().comment('文章类型')
-      table.integer('article_type_id').notNullable().comment('关联文章类别ID')
+      table.integer('article_id').notNullable().comment('关联文章类别ID')
       table.timestamps()
     })
   }

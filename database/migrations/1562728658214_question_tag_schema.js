@@ -8,7 +8,7 @@ class QuestionTagSchema extends Schema {
     this.create('question_tags', (table) => {
       table.increments()
       table.string('value', 40).notNullable().unique().comment('tag内容')
-      table.integer('question_tag_id').notNullable().comment('关联问题标签ID')
+      table.integer('question_id').notNullable().comment('关联问题标签ID')
       table.timestamps()
     })
   }

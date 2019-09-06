@@ -8,7 +8,7 @@ class QuestionTypeSchema extends Schema {
     this.create('question_types', (table) => {
       table.increments()
       table.string('value', 40).notNullable().unique().comment('问题类型')
-      table.integer('question_type_id').notNullable().comment('关联问题类别ID')
+      table.integer('question_id').notNullable().comment('关联问题类别ID')
       table.timestamps()
     })
   }

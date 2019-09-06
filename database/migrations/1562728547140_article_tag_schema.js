@@ -8,7 +8,7 @@ class ArticleTagSchema extends Schema {
     this.create('article_tags', (table) => {
       table.increments()
       table.string('value', 40).notNullable().unique().comment('tag内容')
-      table.integer('article_tag_id').notNullable().comment('关联文章标签ID')
+      table.integer('article_id').notNullable().comment('关联文章标签ID')
       table.timestamps()
     })
   }
