@@ -5,10 +5,6 @@ const Video = use("App/Models/Video");
 const Model = use("Model");
 
 class Course extends Model {
-  static get computed() {
-    return ["longtime", "nums"];
-  }
-
   courseType() {
     return this.belongsTo("App/Models/CourseType");
   }
@@ -19,20 +15,6 @@ class Course extends Model {
 
   getPrice(price) {
     return price / 100;
-  }
-
-  async getLongtime({ id }) {
-    const data = await Video.query()
-      .where("course_id", id)
-      .getSum("duration");
-    return Number(data);
-  }
-
-  async getNums({ id }) {
-    const data = await Video.query()
-      .where("course_id", id)
-      .getCount();
-    return Number(data);
   }
 }
 

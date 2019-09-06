@@ -17,6 +17,7 @@ class UserSchema extends Schema {
       table.string('sina', 200).comment('新浪微博')
       table.integer('access_nums').default(0).comment('访问次数')
       table.integer('empiric_value').comment('经验值')
+      table.integer('balance').comment('账户余额')
       table.integer('status').notNullable().default(1).comment('用户状态0：激活，1：待激活')
       table.integer('type').notNullable().default(2).comment('用户类别1：超管用户，2：普通用户')
       table.string('website', 200).comment('个人网站')

@@ -11,6 +11,8 @@ class CourseSchema extends Schema {
       table.string('intro').notNullable().comment('系列课程简介')
       table.string('image').notNullable().comment('系列课程封面图片地址')
       table.string('discuss_qq_group').comment('讨论QQ群')
+      table.integer('duration').comment('系列视频总时长')
+      table.integer('nums').comment('系列视频总个数')
       table.string('support_wechat').comment('技术服务微信号')
       table.integer('course_type_id').notNullable().comment('系列课程类别ID')
       table.integer('status').notNullable().comment('系列课程状态ID 0：上线，1：下线')
