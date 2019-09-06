@@ -131,6 +131,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/getBucketConfig', "OssController.getBucketConfig")
+  Route.get('/getImgOssConfig', "OssController.getImgOssConfig")
 })
   .namespace("Utils")
   .prefix("api/v1/oss");
