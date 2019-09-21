@@ -16,7 +16,7 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: ['https://www.doniai.com', 'https://hspx.doniai.com', 'http://localhost:8080', 'https://www.hspxsteel.com'],
+  origin: ['https://www.doniai.com', 'https://backend.doniai.com', 'https://hspx.doniai.com', 'http://localhost:8080', 'https://www.hspxsteel.com'],
 
   /*
   |--------------------------------------------------------------------------
