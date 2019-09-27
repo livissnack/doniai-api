@@ -116,6 +116,13 @@ Route.group(() => {
   Route.get("/videos/:id", "VideoController.show");
   Route.put("/videos/:id", "VideoController.update");
   Route.delete("/videos/:id", "VideoController.destroy");
+
+   //enum route only getArticleTypes,getArticleTags,getQuestionTypes,getQuestionTags and getCourseTypes method
+   Route.get("/article_types", "EnumController.getArticleTypes");
+   Route.get("/article_tags", "EnumController.getArticleTags");
+   Route.get("/question_types", "EnumController.getQuestionTypes");
+   Route.get("/question_tags", "EnumController.getQuestionTags");
+   Route.get("/course_types", "EnumController.getCourseTypes");
 })
   .namespace("Api")
   .prefix("api/v1");
