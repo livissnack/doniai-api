@@ -35,8 +35,7 @@ Route.get("/baidu", "TestController.filterText");
 Route.group(() => {
   //user login route
   Route.post("login", "UserController.login")
-    .middleware("guest")
-    .validator("User");
+    .middleware("guest");
   //user register route
   Route.post("register", "UserController.register")
     .middleware("guest")
