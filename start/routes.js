@@ -155,6 +155,7 @@ Route.group(() => {
   //crawler news data
   Route.get("/baidu", "CrawlerController.crawlerBaiduHotNews");
   Route.get("/toutiao", "CrawlerController.crawlerToutiaoHotNews");
+  Route.get("/astro", "CrawlerController.astro");
 })
   .namespace("Utils")
   .prefix("api/v1/crawler");

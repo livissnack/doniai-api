@@ -5,6 +5,7 @@ const {
   parseToutiaoHotNews,
   isOk
 } = require("../../../Utils/Helpers");
+const cheerio = require("cheerio");
 
 class CrawlerController {
   /**
@@ -50,6 +51,26 @@ class CrawlerController {
       });
     }
     
+  }
+
+  async astro({ request, response }) {
+    const url = request.input('url');
+    let data = await httpGet(url);
+    let arr = [];
+    let title = '';
+    if(data.status === 'ok') {
+      let $ = cheerio.load(data.data);
+      title = $("div.TODAY_CONTENT h3").text();
+      $("div.TODAY_CONTENT p").each((idx, ele) => {
+        arr.push($(ele).text());
+      });
+    }
+    let res = {
+      title: title,
+      content: arr
+    }
+    console.log(res);
+    return response.json(res);
   }
 
   async index() {

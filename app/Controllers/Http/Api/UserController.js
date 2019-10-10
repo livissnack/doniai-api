@@ -1,5 +1,6 @@
 "use strict";
 
+const Hash = use('Hash');
 const Mail = use("Mail");
 const User = use("App/Models/User");
 const RandomAvatar = use("random-avatar");
@@ -25,7 +26,7 @@ class UserController {
     } catch (error) {
       return response.json({
         status: "failure",
-        msg: "登录失败",
+        msg: "登录失败"+password,
         data: error.toString()
       });
     }

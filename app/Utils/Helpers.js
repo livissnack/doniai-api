@@ -160,6 +160,24 @@ module.exports = {
     });
   },
 
+  async astro(url) {
+    let data = await httpGet(url);
+    let arr = [];
+    let title = '';
+    if(data.status === 'ok') {
+      let $ = cheerio.load(data.data);
+      title = $("div.TODAY_CONTENT h3").text();
+      $("div.TODAY_CONTENT p").each((idx, ele) => {
+        arr.push($(ele).text());
+      });
+    }
+    let res = {
+      title: title,
+      content: arr
+    }
+    return res;
+  },
+
   /**
    * @method isOk
    * 检查成功返回状态
