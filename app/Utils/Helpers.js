@@ -314,4 +314,9 @@ module.exports = {
       throw new Error("data not object");
     }
   },
+
+  checkAliOssAcl(str) {
+    return ['default', 'public-read-write', 'public-read', 'private'].includes(str);
+  },
+ 
 };
