@@ -43,6 +43,7 @@
     "axios": "^0.19.0",
     "baidu-aip-sdk": "^2.3.9",
     "cheerio": "^1.0.0-rc.3",
+    "exceljs": "^3.1.0",
     "gt3-sdk": "^2.0.0",
     "moment": "^2.24.0",
     "mysql": "^2.17.1",

@@ -1,5 +1,6 @@
 "use strict";
 
+const Excel = use("exceljs");
 const User = use("App/Models/User");
 const Article = use("App/Models/Article");
 const ArticleTag = use("App/Models/ArticleTag");
@@ -129,6 +130,75 @@ class ArticleController {
         data: result
       });
     } catch (error) {
+      return response.json({
+        status: "failure",
+        msg: "文章删除失败",
+        data: error.toString()
+      });
+    }
+  }
+
+  async batchDel({ request, response }) {
+    try {
+      const ids = request.input('ids');
+      const result = await Article
+        .query()
+        .whereIn('id', ids)
+        .delete()
+      return response.json({
+        status: "success",
+        msg: "文章删除成功",
+        data: result
+      });
+    } catch (error) {
+      return response.json({
+        status: "failure",
+        msg: "文章删除失败",
+        data: error.toString()
+      });
+    }
+  }
+
+  async export({ request, response }) {
+    try {
+      const workbook = new Excel.Workbook();
+      const worksheet = workbook.addWorksheet('Sales Data');
+
+      const data = [
+        { product: 'Product A', week1: 5, week2: 10, week3: 27 },
+        { product: 'Product B', week1: 5, week2: 5, week3: 11 },
+        { product: 'Product C', week1: 1, week2: 2, week3: 3 },
+        { product: 'Product D', week1: 6, week2: 1, week3: 2 },
+      ];
+
+      const headers = [
+        { header: 'Product ID', key: 'product', width: 20 },
+        { header: 'Week 1', key: 'week1', width: 10 },
+        { header: 'Week 2', key: 'week2', width: 10 },
+        { header: 'Week 3', key: 'week3', width: 10 },
+        { header: 'Product Totals', key: 'productTotals', width: 12 },
+      ]
+
+      data.forEach((item, index) => {
+        worksheet.addRow({
+          ...item,
+          // productTotals: generateProductTotalsCell(worksheet, index + 1)
+        })
+      })
+
+     
+      // worksheet.getRow(1).eachCell((cell) => {
+      //   cell.font = { bold: true };
+      // });
+    
+      // worksheet.views = [
+      //   { state: 'frozen', xSplit: 1, ySplit: 1, activeCell: 'B2' },
+      // ];
+
+      await workbook.xlsx.writeFile('sales-report.xlsx');
+      
+    } catch (error) {
+      console.log(error)
       return response.json({
         status: "failure",
         msg: "文章删除失败",

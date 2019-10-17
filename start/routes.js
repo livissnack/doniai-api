@@ -52,6 +52,8 @@ Route.group(() => {
   Route.get("/articles/:id", "ArticleController.show");
   Route.put("/articles/:id", "ArticleController.update");
   Route.delete("/articles/:id", "ArticleController.destroy");
+  Route.delete("/articles", "ArticleController.batchDel");
+  Route.get("/export/articles", "ArticleController.export");
 
   //black list resource route only index,store,show,update and destroy method
   Route.get("/blacklists", "BlackListController.index");
