@@ -172,7 +172,7 @@ Route.group(() => {
 */
 Route.group(() => {
   //access count
-  Route.get('/access_count', 'HspxController.access_count')
+  Route.post('/access_count', 'HspxController.access_count')
 })
   .namespace('Utils')
   .prefix('api/v1/hspx')

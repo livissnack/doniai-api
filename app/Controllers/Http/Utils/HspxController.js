@@ -17,20 +17,21 @@ class HspxController {
     if (data.ret !== 200) {
       return response.json(data)
     } else {
+      console.log(data)
       const hspxsteelAccessLog = await HspxsteelAccessLog.findBy('ip', ip)
       if (!hspxsteelAccessLog) {
         const hspxsteelAccessLog = new HspxsteelAccessLog()
-        hspxsteelAccessLog.area = data.area
-        hspxsteelAccessLog.country = data.country
-        hspxsteelAccessLog.long_ip = data.long_ip
-        hspxsteelAccessLog.city = data.city
-        hspxsteelAccessLog.ip = data.ip
-        hspxsteelAccessLog.isp = data.isp
-        hspxsteelAccessLog.region_id = data.region_id
-        hspxsteelAccessLog.region = data.region
-        hspxsteelAccessLog.country_id = data.country_id
-        hspxsteelAccessLog.city_id = data.city_id
-        hspxsteelAccessLog.count = data.count
+        hspxsteelAccessLog.area = data.data.area
+        hspxsteelAccessLog.country = data.data.country
+        hspxsteelAccessLog.long_ip = data.data.long_ip
+        hspxsteelAccessLog.city = data.data.city
+        hspxsteelAccessLog.ip = data.data.ip
+        hspxsteelAccessLog.isp = data.data.isp
+        hspxsteelAccessLog.region_id = data.data.region_id
+        hspxsteelAccessLog.region = data.data.region
+        hspxsteelAccessLog.country_id = data.data.country_id
+        hspxsteelAccessLog.city_id = data.data.city_id
+        hspxsteelAccessLog.count = data.data.count
         if (await hspxsteelAccessLog.save()) {
           return response.json({ code: 200, msg: 'access log write success!' })
         } else {
