@@ -40,7 +40,7 @@ class HspxsteelAccessLogSchema extends Schema {
         .notNullable()
         .comment('省份')
       table
-        .integer('country_id')
+        .string('country_id', 20)
         .notNullable()
         .default(0)
         .comment('国家id')

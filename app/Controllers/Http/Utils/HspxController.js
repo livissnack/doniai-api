@@ -17,7 +17,6 @@ class HspxController {
     if (data.ret !== 200) {
       return response.json(data)
     } else {
-      console.log(data)
       const hspxsteelAccessLog = await HspxsteelAccessLog.findBy('ip', ip)
       if (!hspxsteelAccessLog) {
         const hspxsteelAccessLog = new HspxsteelAccessLog()
@@ -31,21 +30,22 @@ class HspxController {
         hspxsteelAccessLog.region = data.data.region
         hspxsteelAccessLog.country_id = data.data.country_id
         hspxsteelAccessLog.city_id = data.data.city_id
-        hspxsteelAccessLog.count = data.data.count
+        hspxsteelAccessLog.count = 1
         if (await hspxsteelAccessLog.save()) {
           return response.json({ code: 200, msg: 'access log write success!' })
         } else {
           return response.json({ code: 500, msg: 'access log write faiure!' })
         }
       } else {
-        const currentTime = moment(new Date(), 'YYYY-MM-DD HH:mm:ss')
-        const lastUpdateTime = moment(
-          hspxsteelAccessLog.updated_at,
-          'YYYY-MM-DD HH:mm:ss'
+        const currentTime = moment(
+          moment()
+            .locale('zh-cn')
+            .format('YYYY-MM-DD HH:mm:ss')
         )
+        const lastUpdateTime = moment(hspxsteelAccessLog.updated_at)
         const diffSeconds = currentTime.diff(lastUpdateTime)
         if (diffSeconds > 86400) {
-          hspxsteelAccessLog.count = hspxsteelAccessLog.account + 1
+          hspxsteelAccessLog.count += 1
           if (await hspxsteelAccessLog.save()) {
             return response.json({
               code: 200,
