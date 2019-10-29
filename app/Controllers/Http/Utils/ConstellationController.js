@@ -1,6 +1,5 @@
 'use strict'
 
-class ConstellationController {
-}
+class ConstellationController {}
 
 module.exports = ConstellationController

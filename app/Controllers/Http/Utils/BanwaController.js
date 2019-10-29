@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-const Config = use("Config");
-const qs = use("querystring");
-const banwaConfig = Config.get("banwa.config");
-const { httpGet, isOk } = require("../../../Utils/Helpers");
+const Config = use('Config')
+const qs = use('querystring')
+const banwaConfig = Config.get('banwa.config')
+const { httpGet, isOk } = require('../../../Utils/Helpers')
 
 class BanwaController {
   /**
@@ -14,20 +14,20 @@ class BanwaController {
     let qstring = qs.stringify({
       veid: banwaConfig.veid,
       api_key: banwaConfig.api_key
-    });
-    let url = `${banwaConfig.baseUrl}/getServiceInfo?${qstring}`;
+    })
+    let url = `${banwaConfig.baseUrl}/getServiceInfo?${qstring}`
     try {
-      let result = await httpGet(url);
+      let result = await httpGet(url)
       if (isOk(result.status)) {
-        result.data = JSON.parse(result.data);
-        return response.json(result);
+        result.data = JSON.parse(result.data)
+        return response.json(result)
       }
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "数据获取失败",
+        status: 'failure',
+        msg: '数据获取失败',
         data: error.toString()
-      });
+      })
     }
   }
 
@@ -37,23 +37,23 @@ class BanwaController {
    */
   async snapshot({ response }) {
     let qstring = qs.stringify({
-      description: "Automatic_Snapshot",
+      description: 'Automatic_Snapshot',
       veid: banwaConfig.veid,
       api_key: banwaConfig.api_key
-    });
-    let url = `${banwaConfig.baseUrl}/snapshot/create?${qstring}`;
+    })
+    let url = `${banwaConfig.baseUrl}/snapshot/create?${qstring}`
     try {
-      let result = await httpGet(url);
+      let result = await httpGet(url)
       if (isOk(result.status)) {
-        result.data = JSON.parse(result.data);
-        return response.json(result);
+        result.data = JSON.parse(result.data)
+        return response.json(result)
       }
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "快照创建失败",
+        status: 'failure',
+        msg: '快照创建失败',
         data: error.toString()
-      });
+      })
     }
   }
 
@@ -65,20 +65,20 @@ class BanwaController {
     let qstring = qs.stringify({
       veid: banwaConfig.veid,
       api_key: banwaConfig.api_key
-    });
-    let url = `${banwaConfig.baseUrl}/restart?${qstring}`;
+    })
+    let url = `${banwaConfig.baseUrl}/restart?${qstring}`
     try {
-      let result = await httpGet(url);
+      let result = await httpGet(url)
       if (isOk(result.status)) {
-        result.data = JSON.parse(result.data);
-        return response.json(result);
+        result.data = JSON.parse(result.data)
+        return response.json(result)
       }
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "vPS重启失败",
+        status: 'failure',
+        msg: 'vPS重启失败',
         data: error.toString()
-      });
+      })
     }
   }
 
@@ -88,29 +88,29 @@ class BanwaController {
    * @param {response} param0
    */
   async setPtrRecord({ request, response }) {
-    let ip = request.input("ip");
-    let ptr = request.input("ptr");
+    let ip = request.input('ip')
+    let ptr = request.input('ptr')
     let qstring = qs.stringify({
       ip: ip,
       ptr: ptr,
       veid: banwaConfig.veid,
       api_key: banwaConfig.api_key
-    });
-    let url = `${banwaConfig.baseUrl}/setPTR?${qstring}`;
+    })
+    let url = `${banwaConfig.baseUrl}/setPTR?${qstring}`
     try {
-      let result = await httpGet(url);
+      let result = await httpGet(url)
       if (isOk(result.status)) {
-        result.data = JSON.parse(result.data);
-        return response.json(result);
+        result.data = JSON.parse(result.data)
+        return response.json(result)
       }
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "vPS重启失败",
+        status: 'failure',
+        msg: 'vPS重启失败',
         data: error.toString()
-      });
+      })
     }
   }
 }
 
-module.exports = BanwaController;
+module.exports = BanwaController

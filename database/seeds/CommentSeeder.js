@@ -14,9 +14,9 @@
 const Factory = use('Factory')
 
 class CommentSeeder {
-    async run() {
-        const comments = await Factory.model('App/Models/Comment').createMany(100)
-    }
+  async run() {
+    const comments = await Factory.model('App/Models/Comment').createMany(100)
+  }
 }
 
 module.exports = CommentSeeder

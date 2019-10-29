@@ -14,9 +14,11 @@
 const Factory = use('Factory')
 
 class ArticleTagSeeder {
-    async run() {
-        const article_tags = await Factory.model('App/Models/ArticleTag').createMany(100)
-    }
+  async run() {
+    const article_tags = await Factory.model(
+      'App/Models/ArticleTag'
+    ).createMany(100)
+  }
 }
 
 module.exports = ArticleTagSeeder

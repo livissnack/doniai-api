@@ -1,11 +1,11 @@
 'use strict'
 
-const Redis = use('Redis');
-const ArticleType = use("App/Models/ArticleType");
-const ArticleTag = use("App/Models/ArticleTag");
-const QuestionType = use("App/Models/QuestionType");
-const QuestionTag = use("App/Models/QuestionTag");
-const CourseType = use("App/Models/CourseType");
+const Redis = use('Redis')
+const ArticleType = use('App/Models/ArticleType')
+const ArticleTag = use('App/Models/ArticleTag')
+const QuestionType = use('App/Models/QuestionType')
+const QuestionTag = use('App/Models/QuestionTag')
+const CourseType = use('App/Models/CourseType')
 
 class EnumController {
   async getArticleTypes() {
@@ -13,9 +13,9 @@ class EnumController {
     if (cachedArticleTypes) {
       return JSON.parse(cachedArticleTypes)
     }
-    const articleTypes = await ArticleType.all();
+    const articleTypes = await ArticleType.all()
     await Redis.set('article_types', JSON.stringify(articleTypes))
-    return articleTypes;
+    return articleTypes
   }
 
   async getArticleTags() {
@@ -23,9 +23,9 @@ class EnumController {
     if (cachedArticleTags) {
       return JSON.parse(cachedArticleTags)
     }
-    const articleTags = await ArticleTag.all();
+    const articleTags = await ArticleTag.all()
     await Redis.set('article_tags', JSON.stringify(articleTags))
-    return articleTags;
+    return articleTags
   }
 
   async getQuestionTypes() {
@@ -33,9 +33,9 @@ class EnumController {
     if (cachedQuestionTypes) {
       return JSON.parse(cachedQuestionTypes)
     }
-    const questionTypes = await QuestionType.all();
+    const questionTypes = await QuestionType.all()
     await Redis.set('question_types', JSON.stringify(questionTypes))
-    return questionTypes;
+    return questionTypes
   }
 
   async getQuestionTags() {
@@ -43,9 +43,9 @@ class EnumController {
     if (cachedQuestionTags) {
       return JSON.parse(cachedQuestionTags)
     }
-    const questionTags = await QuestionTag.all();
+    const questionTags = await QuestionTag.all()
     await Redis.set('question_tags', JSON.stringify(questionTags))
-    return questionTags;
+    return questionTags
   }
 
   async getCourseTypes() {
@@ -53,9 +53,9 @@ class EnumController {
     if (cachedCourseTypes) {
       return JSON.parse(cachedCourseTypes)
     }
-    const courseTypes = await CourseType.all();
+    const courseTypes = await CourseType.all()
     await Redis.set('course_types', JSON.stringify(courseTypes))
-    return courseTypes;
+    return courseTypes
   }
 }
 

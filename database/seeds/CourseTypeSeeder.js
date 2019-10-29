@@ -14,8 +14,10 @@
 const Factory = use('Factory')
 
 class CourseTypeSeeder {
-  async run () {
-    const course_types = await Factory.model('App/Models/CourseType').createMany(100)
+  async run() {
+    const course_types = await Factory.model(
+      'App/Models/CourseType'
+    ).createMany(100)
   }
 }
 

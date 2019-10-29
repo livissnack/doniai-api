@@ -4,19 +4,35 @@
 const Schema = use('Schema')
 
 class ReplaySchema extends Schema {
-  up () {
-    this.create('replays', (table) => {
+  up() {
+    this.create('replays', table => {
       table.increments()
-      table.integer('question_id').notNullable().comment('问题ID')
-      table.integer('pid').notNullable().comment('回复父ID')
-      table.integer('user_id').notNullable().comment('回复用户ID')
-      table.string('content').notNullable().comment('回复内容')
-      table.integer('is_show').notNullable().default(0).comment('0：显示，1：隐藏')
+      table
+        .integer('question_id')
+        .notNullable()
+        .comment('问题ID')
+      table
+        .integer('pid')
+        .notNullable()
+        .comment('回复父ID')
+      table
+        .integer('user_id')
+        .notNullable()
+        .comment('回复用户ID')
+      table
+        .string('content')
+        .notNullable()
+        .comment('回复内容')
+      table
+        .integer('is_show')
+        .notNullable()
+        .default(0)
+        .comment('0：显示，1：隐藏')
       table.timestamps()
     })
   }
 
-  down () {
+  down() {
     this.drop('replays')
   }
 }

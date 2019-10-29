@@ -5,13 +5,13 @@
  * Released under the MIT License.
  */
 
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const crypto = require("crypto");
-const moment = require("moment");
-const cheerio = require("cheerio");
-const superagent = require("superagent");
+'use strict'
+const fs = require('fs')
+const path = require('path')
+const crypto = require('crypto')
+const moment = require('moment')
+const cheerio = require('cheerio')
+const superagent = require('superagent')
 
 module.exports = {
   /**
@@ -23,13 +23,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       superagent.get(url).end((err, res) => {
         if (err) {
-          console.log(err);
-          reject(`数据抓取失败 - ${err}`);
+          console.log(err)
+          reject(`数据抓取失败 - ${err}`)
         } else {
-          resolve({ status: "ok", data: res.text });
+          resolve({ status: 'ok', data: res.text })
         }
-      });
-    });
+      })
+    })
   },
 
   /**
@@ -42,26 +42,26 @@ module.exports = {
   httpTlsGet(url, keyPath, certPath) {
     return new Promise((resolve, reject) => {
       if (!fs.existsSync(keyPath)) {
-        reject(`ssl key file not exists.`);
+        reject(`ssl key file not exists.`)
       }
       if (!fs.existsSync(certPath)) {
-        reject(`ssl cert file not exists.`);
+        reject(`ssl cert file not exists.`)
       }
-      let key = fs.readFileSync(keyPath);
-      let cert = fs.readFileSync(certPath);
+      let key = fs.readFileSync(keyPath)
+      let cert = fs.readFileSync(certPath)
       superagent
         .get(url)
         .key(key)
         .cert(cert)
         .end((err, res) => {
           if (err) {
-            console.log(err);
-            reject(`数据抓取失败 - ${err}`);
+            console.log(err)
+            reject(`数据抓取失败 - ${err}`)
           } else {
-            resolve({ status: "ok", data: res.text });
+            resolve({ status: 'ok', data: res.text })
           }
-        });
-    });
+        })
+    })
   },
 
   /**
@@ -72,32 +72,36 @@ module.exports = {
     return new Promise((resolve, reject) => {
       superagent.get(url).end((err, res) => {
         if (err) {
-          console.log(err);
-          reject(`数据获取失败 - ${err}`);
+          console.log(err)
+          reject(`数据获取失败 - ${err}`)
         } else {
-          resolve({ status: "ok", data: JSON.parse(res.text) });
+          resolve({ status: 'ok', data: JSON.parse(res.text) })
         }
-      });
-    });
+      })
+    })
   },
 
   /**
    * http post request
-   * @param {url} string 
-   * @param {data} object 
-   * @param {headers} object 
+   * @param {url} string
+   * @param {data} object
+   * @param {headers} object
    */
   httpPost(url, data, headers) {
     return new Promise((resolve, reject) => {
-      superagent.post(url).send(data).set(headers).end((err, res) => {
-        if (err) {
-          console.log(err);
-          reject(`数据获取失败 - ${err}`);
-        } else {
-          resolve({ status: "ok", data: (JSON.parse(res.text)).result });
-        }
-      });
-    });
+      superagent
+        .post(url)
+        .send(data)
+        .set(headers)
+        .end((err, res) => {
+          if (err) {
+            console.log(err)
+            reject(`数据获取失败 - ${err}`)
+          } else {
+            resolve({ status: 'ok', data: JSON.parse(res.text).result })
+          }
+        })
+    })
   },
 
   /**
@@ -107,17 +111,17 @@ module.exports = {
    */
   parseBaiduHotNews(html /*, html*/) {
     return new Promise((resolve, reject) => {
-      let hotNews = [];
-      let $ = cheerio.load(html);
-      $("div#pane-news ul li a").each((idx, ele) => {
+      let hotNews = []
+      let $ = cheerio.load(html)
+      $('div#pane-news ul li a').each((idx, ele) => {
         let news = {
           title: $(ele).text(),
-          href: $(ele).attr("href")
-        };
-        hotNews.push(news);
-        resolve(hotNews);
-      });
-    });
+          href: $(ele).attr('href')
+        }
+        hotNews.push(news)
+        resolve(hotNews)
+      })
+    })
   },
 
   /**
@@ -127,17 +131,17 @@ module.exports = {
    */
   parseToutiaoHotNews(html /*, html*/) {
     return new Promise((resolve, reject) => {
-      let hotNews = [];
-      let $ = cheerio.load(html);
-      $("div.wcommonFeed ul li a").each((idx, ele) => {
+      let hotNews = []
+      let $ = cheerio.load(html)
+      $('div.wcommonFeed ul li a').each((idx, ele) => {
         let news = {
           title: $(ele).text(),
-          href: $(ele).attr("href")
-        };
-        hotNews.push(news);
-        resolve(hotNews);
-      });
-    });
+          href: $(ele).attr('href')
+        }
+        hotNews.push(news)
+        resolve(hotNews)
+      })
+    })
   },
 
   /**
@@ -147,35 +151,35 @@ module.exports = {
    */
   parseFreeProxy(html /*, html*/) {
     return new Promise((resolve, reject) => {
-      let proxy_list = [];
-      let $ = cheerio.load(html);
-      $("table#proxy_list tbody tr td").each((idx, ele) => {
+      let proxy_list = []
+      let $ = cheerio.load(html)
+      $('table#proxy_list tbody tr td').each((idx, ele) => {
         let proxy_data = {
           title: $(ele).text(),
-          href: $(ele).attr("href")
-        };
-        proxy_list.push(proxy_data);
-        resolve(proxy_list);
-      });
-    });
+          href: $(ele).attr('href')
+        }
+        proxy_list.push(proxy_data)
+        resolve(proxy_list)
+      })
+    })
   },
 
   async astro(url) {
-    let data = await httpGet(url);
-    let arr = [];
-    let title = '';
-    if(data.status === 'ok') {
-      let $ = cheerio.load(data.data);
-      title = $("div.TODAY_CONTENT h3").text();
-      $("div.TODAY_CONTENT p").each((idx, ele) => {
-        arr.push($(ele).text());
-      });
+    let data = await httpGet(url)
+    let arr = []
+    let title = ''
+    if (data.status === 'ok') {
+      let $ = cheerio.load(data.data)
+      title = $('div.TODAY_CONTENT h3').text()
+      $('div.TODAY_CONTENT p').each((idx, ele) => {
+        arr.push($(ele).text())
+      })
     }
     let res = {
       title: title,
       content: arr
     }
-    return res;
+    return res
   },
 
   /**
@@ -184,7 +188,7 @@ module.exports = {
    * @param {state} string
    */
   isOk(state /*, state*/) {
-    return state.toLowerCase() === "ok" ? true : false;
+    return state.toLowerCase() === 'ok' ? true : false
   },
 
   /**
@@ -193,7 +197,7 @@ module.exports = {
    * @param {state} string
    */
   isNo(state /*, state*/) {
-    return state.toLowerCase() === "no" ? true : false;
+    return state.toLowerCase() === 'no' ? true : false
   },
 
   /**
@@ -202,8 +206,8 @@ module.exports = {
    * @param {value} string
    * @param {format} string
    */
-  formatDate(value, format = "YYYY-MM-DD HH:mm:ss") {
-    return value ? moment(value).format(format) : "";
+  formatDate(value, format = 'YYYY-MM-DD HH:mm:ss') {
+    return value ? moment(value).format(format) : ''
   },
 
   /**
@@ -211,8 +215,8 @@ module.exports = {
    * app/Controllers路径
    * @param {toFile} string
    */
-  controllerPath(toFile = "") {
-    return path.join("", "app/Controllers", toFile);
+  controllerPath(toFile = '') {
+    return path.join('', 'app/Controllers', toFile)
   },
 
   /**
@@ -220,8 +224,8 @@ module.exports = {
    * app/Controllers/Http路径
    * @param {toFile} string
    */
-  httpPath(toFile = "") {
-    return path.join("", "app/Controllers/Http", toFile);
+  httpPath(toFile = '') {
+    return path.join('', 'app/Controllers/Http', toFile)
   },
 
   /**
@@ -229,8 +233,8 @@ module.exports = {
    * app/Controllers/Http/Api路径
    * @param {toFile} string
    */
-  httpApiPath(toFile = "") {
-    return path.join("", "app/Controllers/Http/Api", toFile);
+  httpApiPath(toFile = '') {
+    return path.join('', 'app/Controllers/Http/Api', toFile)
   },
 
   /**
@@ -238,8 +242,8 @@ module.exports = {
    * app/Controllers/Http/Utils路径
    * @param {toFile} string
    */
-  httpUtilsPath(toFile = "") {
-    return path.join("", "app/Controllers/Http/Utils", toFile);
+  httpUtilsPath(toFile = '') {
+    return path.join('', 'app/Controllers/Http/Utils', toFile)
   },
 
   /**
@@ -247,8 +251,8 @@ module.exports = {
    * app/Utils路径
    * @param {toFile} string
    */
-  utilsPath(toFile = "") {
-    return path.join("", "app/Utils", toFile);
+  utilsPath(toFile = '') {
+    return path.join('', 'app/Utils', toFile)
   },
 
   /**
@@ -257,11 +261,11 @@ module.exports = {
    * @param {content} string
    * @param {salt} string
    */
-  md5(content, salt = "doniai") {
+  md5(content, salt = 'doniai') {
     return crypto
-      .createHash("md5")
+      .createHash('md5')
       .update(content + salt)
-      .digest("hex");
+      .digest('hex')
   },
 
   /**
@@ -270,11 +274,11 @@ module.exports = {
    * @param {content} string
    * @param {salt} string
    */
-  hash(content, salt = "doniai") {
+  hash(content, salt = 'doniai') {
     return crypto
-      .createHash("sha256")
+      .createHash('sha256')
       .update(content + salt)
-      .digest("hex");
+      .digest('hex')
   },
 
   /**
@@ -284,39 +288,38 @@ module.exports = {
    */
   securtFileName(file) {
     if (!fs.existsSync(file)) {
-      throw new Error("file not found");
+      throw new Error('file not found')
     }
-    const extname = path.extname(file);
-    const filename = path.basename(file).split(".")[0];
+    const extname = path.extname(file)
+    const filename = path.basename(file).split('.')[0]
     return `${crypto
-      .createHash("md5")
+      .createHash('md5')
       .update(filename)
-      .digest("hex")}${extname}`;
+      .digest('hex')}${extname}`
   },
 
   isEmpty(value) {
-    return (
-      value === null || value === "" || value === undefined || value === {}
-    );
+    return value === null || value === '' || value === undefined || value === {}
   },
 
   searchWhere(obj) {
     if (_.isObject(obj) && !_.isEmpty(obj)) {
-      let iWhere = {};
+      let iWhere = {}
       for (let prop in obj) {
         if (obj.hasOwnProperty(prop)) {
-          console.log(prop, obj['prop']);
-          Object.assign(iWhere, {prop: obj['prop']});
+          console.log(prop, obj['prop'])
+          Object.assign(iWhere, { prop: obj['prop'] })
         }
       }
-      return iWhere;
+      return iWhere
     } else {
-      throw new Error("data not object");
+      throw new Error('data not object')
     }
   },
 
   checkAliOssAcl(str) {
-    return ['default', 'public-read-write', 'public-read', 'private'].includes(str);
-  },
- 
-};
+    return ['default', 'public-read-write', 'public-read', 'private'].includes(
+      str
+    )
+  }
+}

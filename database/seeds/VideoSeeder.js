@@ -14,7 +14,7 @@
 const Factory = use('Factory')
 
 class VideoSeeder {
-  async run () {
+  async run() {
     const videos = await Factory.model('App/Models/Video').createMany(100)
   }
 }

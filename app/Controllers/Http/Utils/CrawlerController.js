@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 const {
   httpGet,
   parseBaiduHotNews,
   parseToutiaoHotNews,
   isOk
-} = require("../../../Utils/Helpers");
-const cheerio = require("cheerio");
+} = require('../../../Utils/Helpers')
+const cheerio = require('cheerio')
 
 class CrawlerController {
   /**
@@ -13,10 +13,10 @@ class CrawlerController {
    * @param {response} object
    */
   async crawlerBaiduHotNews({ response }) {
-    let crawlerData = await httpGet("http://news.baidu.com/");
+    let crawlerData = await httpGet('http://news.baidu.com/')
     if (isOk(crawlerData.status)) {
-      let hotNews = await parseBaiduHotNews(crawlerData.data);
-      return response.json(hotNews);
+      let hotNews = await parseBaiduHotNews(crawlerData.data)
+      return response.json(hotNews)
     }
   }
 
@@ -25,57 +25,58 @@ class CrawlerController {
    * @param {response} object
    */
   async crawlerToutiaoHotNews({ response }) {
-    let crawlerData = await httpGet("https://www.toutiao.com/ch/news_hot/");
+    let crawlerData = await httpGet('https://www.toutiao.com/ch/news_hot/')
     if (isOk(crawlerData.status)) {
-      let hotNews = await parseToutiaoHotNews(crawlerData.data);
-      return response.json(hotNews);
+      let hotNews = await parseToutiaoHotNews(crawlerData.data)
+      return response.json(hotNews)
     }
   }
 
   /**
    * 开始执行爬虫--爬取免费的高匿名代理
-   * @param {reponse} object 
+   * @param {reponse} object
    */
   async crawlerFreeProxy({ response }) {
-    try{
-      let crawlerData = await httpGet("http://free-proxy.cz/zh/proxylist/country/all/socks5/ping/level1");
+    try {
+      let crawlerData = await httpGet(
+        'http://free-proxy.cz/zh/proxylist/country/all/socks5/ping/level1'
+      )
       if (isOk(crawlerData.status)) {
-        let proxyList = await parseFreeProxy(crawlerData.data);
-        return response.json(proxyList);
+        let proxyList = await parseFreeProxy(crawlerData.data)
+        return response.json(proxyList)
       }
-    }catch(error) {
+    } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "数据抓取失败",
+        status: 'failure',
+        msg: '数据抓取失败',
         data: error.toString()
-      });
+      })
     }
-    
   }
 
   async astro({ request, response }) {
-    const url = request.input('url');
-    let data = await httpGet(url);
-    let arr = [];
-    let title = '';
-    if(data.status === 'ok') {
-      let $ = cheerio.load(data.data);
-      title = $("div.TODAY_CONTENT h3").text();
-      $("div.TODAY_CONTENT p").each((idx, ele) => {
-        arr.push($(ele).text());
-      });
+    const url = request.input('url')
+    let data = await httpGet(url)
+    let arr = []
+    let title = ''
+    if (data.status === 'ok') {
+      let $ = cheerio.load(data.data)
+      title = $('div.TODAY_CONTENT h3').text()
+      $('div.TODAY_CONTENT p').each((idx, ele) => {
+        arr.push($(ele).text())
+      })
     }
     let res = {
       title: title,
       content: arr
     }
-    console.log(res);
-    return response.json(res);
+    console.log(res)
+    return response.json(res)
   }
 
   async index() {
-    return "dadadas";
+    return 'dadadas'
   }
 }
 
-module.exports = CrawlerController;
+module.exports = CrawlerController

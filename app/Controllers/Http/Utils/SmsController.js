@@ -1,8 +1,8 @@
-"use strict";
+'use strict'
 
-const Config = use("Config");
-const sms = use("@alicloud/pop-core");
-const smsConfig = Config.get("sms.ali");
+const Config = use('Config')
+const sms = use('@alicloud/pop-core')
+const smsConfig = Config.get('sms.ali')
 
 class SmsController {
   /**
@@ -14,28 +14,28 @@ class SmsController {
   async query({ request, response }) {
     try {
       const params = request.only(
-        "RegionId",
-        "PhoneNumber",
-        "SendDate",
-        "PageSize",
-        "CurrentPage",
-        "BizId"
-      );
-      const client = new sms({ smsConfig });
-      const data = await client.request("QuerySendDetails", params, {
-        method: "POST"
-      });
+        'RegionId',
+        'PhoneNumber',
+        'SendDate',
+        'PageSize',
+        'CurrentPage',
+        'BizId'
+      )
+      const client = new sms({ smsConfig })
+      const data = await client.request('QuerySendDetails', params, {
+        method: 'POST'
+      })
       return response.json({
-        status: "success",
-        msg: "发送短信详情查询成功",
+        status: 'success',
+        msg: '发送短信详情查询成功',
         data: data
-      });
+      })
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "发送短信详情查询失败",
+        status: 'failure',
+        msg: '发送短信详情查询失败',
         data: error.toString()
-      });
+      })
     }
   }
 
@@ -48,29 +48,29 @@ class SmsController {
   async send({ request, response }) {
     try {
       const params = request.only(
-        "RegionId",
-        "PhoneNumber",
-        "SignName",
-        "TemplateCode",
-        "TemplateParam",
-        "SmsUpExtendCode",
-        "OutId"
-      );
-      const client = new sms({ smsConfig });
-      const data = await client.request("SendSms", params, {
-        method: "POST"
-      });
+        'RegionId',
+        'PhoneNumber',
+        'SignName',
+        'TemplateCode',
+        'TemplateParam',
+        'SmsUpExtendCode',
+        'OutId'
+      )
+      const client = new sms({ smsConfig })
+      const data = await client.request('SendSms', params, {
+        method: 'POST'
+      })
       return response.json({
-        status: "success",
-        msg: "短信发送成功",
+        status: 'success',
+        msg: '短信发送成功',
         data: data
-      });
+      })
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "短信发送失败",
+        status: 'failure',
+        msg: '短信发送失败',
         data: error.toString()
-      });
+      })
     }
   }
 
@@ -83,30 +83,30 @@ class SmsController {
   async sendBatch({ request, response }) {
     try {
       const params = request.only(
-        "RegionId",
-        "PhoneNumberJson",
-        "SignNameJson",
-        "TemplateCode",
-        "TemplateParamJson",
-        "SmsUpExtendCodeJson"
-      );
-      const client = new sms({ smsConfig });
-      const data = await client.request("SendBatchSms", params, {
-        method: "POST"
-      });
+        'RegionId',
+        'PhoneNumberJson',
+        'SignNameJson',
+        'TemplateCode',
+        'TemplateParamJson',
+        'SmsUpExtendCodeJson'
+      )
+      const client = new sms({ smsConfig })
+      const data = await client.request('SendBatchSms', params, {
+        method: 'POST'
+      })
       return response.json({
-        status: "success",
-        msg: "短信批量发送成功",
+        status: 'success',
+        msg: '短信批量发送成功',
         data: data
-      });
+      })
     } catch (error) {
       return response.json({
-        status: "failure",
-        msg: "短信批量发送失败",
+        status: 'failure',
+        msg: '短信批量发送失败',
         data: error.toString()
-      });
+      })
     }
   }
 }
 
-module.exports = SmsController;
+module.exports = SmsController

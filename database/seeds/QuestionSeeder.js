@@ -14,7 +14,7 @@
 const Factory = use('Factory')
 
 class QuestionSeeder {
-  async run () {
+  async run() {
     const questions = await Factory.model('App/Models/Question').createMany(100)
   }
 }

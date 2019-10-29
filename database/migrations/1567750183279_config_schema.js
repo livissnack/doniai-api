@@ -4,16 +4,23 @@
 const Schema = use('Schema')
 
 class ConfigSchema extends Schema {
-  up () {
-    this.create('configs', (table) => {
+  up() {
+    this.create('configs', table => {
       table.increments()
-      table.string('key').notNullable().unique().comment('键名')
-      table.string('value').notNullable().comment('具体值')
+      table
+        .string('key')
+        .notNullable()
+        .unique()
+        .comment('键名')
+      table
+        .string('value')
+        .notNullable()
+        .comment('具体值')
       table.timestamps()
     })
   }
 
-  down () {
+  down() {
     this.drop('configs')
   }
 }

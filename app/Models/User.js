@@ -1,24 +1,24 @@
-"use strict";
+'use strict'
 
 /** @type {import('@adonisjs/framework/src/Hash')} */
-const Hash = use("Hash");
+const Hash = use('Hash')
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use("Model");
+const Model = use('Model')
 
 class User extends Model {
   static boot() {
-    super.boot();
+    super.boot()
 
     /**
      * A hook to hash the user password before saving
      * it to the database.
      */
-    this.addHook("beforeSave", async userInstance => {
+    this.addHook('beforeSave', async userInstance => {
       if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password);
+        userInstance.password = await Hash.make(userInstance.password)
       }
-    });
+    })
   }
 
   /**
@@ -32,10 +32,10 @@ class User extends Model {
    * @return {Object}
    */
   tokens() {
-    return this.hasMany("App/Models/Token");
+    return this.hasMany('App/Models/Token')
   }
 
-  articles () {
+  articles() {
     return this.hasMany('App/Models/Article', 'id', 'user_id')
   }
 
@@ -46,7 +46,7 @@ class User extends Model {
    *
    * @return {Object}
    */
-  comments () {
+  comments() {
     return this.hasMany('App/Models/Comment', 'id', 'user_id')
   }
 
@@ -57,9 +57,9 @@ class User extends Model {
    *
    * @return {Object}
    */
-  questions () {
+  questions() {
     return this.hasMany('App/Models/Question', 'id', 'user_id')
   }
 }
 
-module.exports = User;
+module.exports = User

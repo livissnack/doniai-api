@@ -4,16 +4,23 @@
 const Schema = use('Schema')
 
 class ArticleTypeSchema extends Schema {
-  up () {
-    this.create('article_types', (table) => {
+  up() {
+    this.create('article_types', table => {
       table.increments()
-      table.string('value', 40).notNullable().unique().comment('文章类型')
-      table.integer('article_id').notNullable().comment('关联文章类别ID')
+      table
+        .string('value', 40)
+        .notNullable()
+        .unique()
+        .comment('文章类型')
+      table
+        .integer('article_id')
+        .notNullable()
+        .comment('关联文章类别ID')
       table.timestamps()
     })
   }
 
-  down () {
+  down() {
     this.drop('article_types')
   }
 }

@@ -4,19 +4,17 @@ const Task = use('Task')
 const Moment = use('moment')
 const QueryString = use('querystring')
 const Constellation = use('App/Models/Constellation')
-const {
-  astro
-} = require('../Utils/Helpers');
+const { astro } = require('../Utils/Helpers')
 
 class Crawler extends Task {
-  static get schedule () {
+  static get schedule() {
     return '0 */1 * * * *'
   }
 
-  async handle () {
+  async handle() {
     const baseUrl = 'http://astro.click108.com.tw'
     const current_time = Moment().format('YYYY-MM-DD')
-    for(i = 0; i <= 11; i++) {
+    for (i = 0; i <= 11; i++) {
       const params = {
         iAcDay: current_time,
         iAstro: i
@@ -26,7 +24,8 @@ class Crawler extends Task {
       const res = await astro(url)
       const constellation = new Constellation()
       constellation.title = res.title
-      constellation.content = typeof res.content === 'object' ? res.content.toString() : res.content
+      constellation.content =
+        typeof res.content === 'object' ? res.content.toString() : res.content
       constellation.status = 0
       await user.save()
     }

@@ -14,9 +14,11 @@
 const Factory = use('Factory')
 
 class ArticleTypeSeeder {
-    async run() {
-        const article_types = await Factory.model('App/Models/ArticleType').createMany(100)
-    }
+  async run() {
+    const article_types = await Factory.model(
+      'App/Models/ArticleType'
+    ).createMany(100)
+  }
 }
 
 module.exports = ArticleTypeSeeder

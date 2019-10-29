@@ -14,8 +14,10 @@
 const Factory = use('Factory')
 
 class QuestionTagSeeder {
-  async run () {
-    const question_tags = await Factory.model('App/Models/QuestionTag').createMany(100)
+  async run() {
+    const question_tags = await Factory.model(
+      'App/Models/QuestionTag'
+    ).createMany(100)
   }
 }
 
