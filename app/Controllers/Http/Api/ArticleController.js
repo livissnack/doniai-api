@@ -92,7 +92,7 @@ class ArticleController {
     } catch (error) {
       return response.json({
         status: 'failure',
-        msg: '文章数据获取成功',
+        msg: '文章数据获取失败',
         data: error.toString()
       })
     }

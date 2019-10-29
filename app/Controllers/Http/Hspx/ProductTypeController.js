@@ -46,6 +46,24 @@ class ProductTypeController {
       })
     }
   }
+
+  async destroy({ params, response }) {
+    const { id } = params
+    try {
+      const result = await HspxsteelProductType.find(id).delete()
+      return response.json({
+        status: 'success',
+        msg: '删除成功',
+        data: result
+      })
+    } catch (error) {
+      return response.json({
+        status: 'failure',
+        msg: '删除失败',
+        data: error.toString()
+      })
+    }
+  }
 }
 
 module.exports = ProductTypeController

@@ -280,3 +280,38 @@ Route.group(() => {
 })
   .namespace('Utils')
   .prefix('api/v1/ticket')
+
+/* ---------------------------------以下是hspx站点接口-------------------------------------------- */
+
+/*
+|--------------------------------------------------------------------------
+| Routes hspx company website
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
+Route.group(() => {
+  Route.post('/inquiry', 'InquiryController.create')
+  Route.get('/news', 'NewsController.index')
+  Route.get('/news/hot', 'NewsController.hot')
+  Route.post('/news', 'NewsController.store')
+  Route.get('/news/:id', 'NewsController.show')
+  Route.put('/news/:id', 'NewsController.update')
+  Route.delete('/news/:id', 'NewsController.destroy')
+
+  Route.get('/product', 'ProductController.index')
+  Route.post('/product', 'ProductController.store')
+  Route.get('/product/:id', 'ProductController.show')
+  Route.delete('/product/:id', 'ProductController.destroy')
+
+  Route.get('/product_type', 'ProductTypeController.index')
+  Route.post('/product_type', 'ProductTypeController.store')
+  Route.delete('/product_type/:id', 'ProductController.destroy')
+
+  Route.post('/login', 'UserController.login')
+  Route.post('/register', 'UserController.register')
+})
+  .namespace('Hspx')
+  .prefix('api/v1/hspx')

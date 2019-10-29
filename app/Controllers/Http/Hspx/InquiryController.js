@@ -2,6 +2,10 @@
 const HspxsteelInquiry = use('App/Models/HspxsteelInquiry')
 
 class InquiryController {
+  /**
+   * 客户咨询问题创建
+   * @param {*} param0
+   */
   async create({ request, response }) {
     const data = request.only([
       'name',
