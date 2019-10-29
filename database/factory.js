@@ -129,7 +129,6 @@ Factory.blueprint('App/Models/Question', faker => {
   return {
     title: faker.sentence(),
     content: faker.sentence(),
-    user_id: faker.integer({ min: 1, max: 100000 }),
     question_tag_id: faker.integer({ min: 1, max: 10 }),
     question_type_id: faker.integer({ min: 1, max: 10 }),
     user_id: faker.integer({ min: 1, max: 100 }),
@@ -179,5 +178,76 @@ Factory.blueprint('App/Models/BlackList', faker => {
     status: faker.integer({ min: 1, max: 10 }),
     release_start_time: formatDate(new Date()),
     release_end_time: formatDate(new Date())
+  }
+})
+
+Factory.blueprint('App/Models/HspxsteelNew', faker => {
+  return {
+    image: faker.url({ extensions: ['jpg', 'png'] }),
+    type: faker.integer({ min: 0, max: 1 }),
+    announcer: faker.word(),
+    status: faker.integer({ min: 0, max: 9 }),
+    zh_title: faker.sentence(),
+    zh_content: faker.paragraph(),
+    tr_title: faker.sentence(),
+    tr_content: faker.paragraph(),
+    ko_title: faker.sentence(),
+    ko_content: faker.paragraph(),
+    ja_title: faker.sentence(),
+    ja_content: faker.paragraph(),
+    en_title: faker.sentence(),
+    en_content: faker.paragraph(),
+    ar_title: faker.sentence(),
+    ar_content: faker.paragraph()
+  }
+})
+
+Factory.blueprint('App/Models/HspxsteelProduct', faker => {
+  return {
+    image: faker.url({ extensions: ['jpg', 'png'] }),
+    instock: faker.integer({ min: 1, max: 10000 }),
+    product_type_id: faker.integer({ min: 1, max: 5 }),
+    status: faker.integer({ min: 0, max: 1 }),
+    zh_name: faker.sentence(),
+    zh_content: faker.paragraph(),
+    zh_width: faker.word(),
+    zh_thickness: faker.word(),
+    zh_length: faker.word(),
+    tr_name: faker.sentence(),
+    tr_content: faker.paragraph(),
+    tr_width: faker.word(),
+    tr_thickness: faker.word(),
+    tr_length: faker.word(),
+    ko_name: faker.sentence(),
+    ko_content: faker.paragraph(),
+    ko_width: faker.word(),
+    ko_thickness: faker.word(),
+    ko_length: faker.word(),
+    ja_name: faker.sentence(),
+    ja_content: faker.paragraph(),
+    ja_width: faker.word(),
+    ja_thickness: faker.word(),
+    ja_length: faker.word(),
+    en_name: faker.sentence(),
+    en_content: faker.paragraph(),
+    en_width: faker.word(),
+    en_thickness: faker.word(),
+    en_length: faker.word(),
+    ar_name: faker.sentence(),
+    ar_content: faker.paragraph(),
+    ar_width: faker.word(),
+    ar_thickness: faker.word(),
+    ar_length: faker.word()
+  }
+})
+
+Factory.blueprint('App/Models/HspxsteelProductType', faker => {
+  return {
+    zh_value: faker.sentence(),
+    tr_value: faker.sentence(),
+    ko_value: faker.sentence(),
+    ja_value: faker.sentence(),
+    en_value: faker.sentence(),
+    ar_value: faker.sentence()
   }
 })

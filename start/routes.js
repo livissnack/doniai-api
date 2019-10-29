@@ -294,6 +294,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.post('/inquiry', 'InquiryController.create')
+
   Route.get('/news', 'NewsController.index')
   Route.get('/news/hot', 'NewsController.hot')
   Route.post('/news', 'NewsController.store')

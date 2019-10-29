@@ -128,7 +128,7 @@ class HspxsteelProductSchema extends Schema {
 
       // 阿拉伯内容
       table
-        .string('ar_title')
+        .string('ar_name')
         .notNullable()
         .comment('阿拉伯语标题')
       table
