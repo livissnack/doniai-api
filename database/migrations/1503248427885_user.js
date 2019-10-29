@@ -7,19 +7,10 @@ class UserSchema extends Schema {
   up() {
     this.create('users', table => {
       table.increments()
-      table
-        .string('username', 80)
-        .notNullable()
-        .unique()
-        .comment('用户名')
-      table
-        .string('nikename', 80)
-        .notNullable()
-        .unique()
-        .comment('用户昵称')
+      table.string('username', 80).comment('用户名')
+      table.string('nikename', 80).comment('用户昵称')
       table
         .string('email', 254)
-        .notNullable()
         .unique()
         .comment('用户邮箱')
       table
@@ -54,11 +45,7 @@ class UserSchema extends Schema {
         .string('referral_code', 128)
         .unique()
         .comment('用户推荐码')
-      table
-        .string('avatar', 254)
-        .notNullable()
-        .unique()
-        .comment('用户图像')
+      table.string('avatar', 254).comment('用户图像')
       table
         .string('wechat_receipt_qr')
         .unique()
