@@ -29,7 +29,6 @@ class UserController {
     const { email, password } = request.only(['email', 'password'])
     try {
       const result = await auth.attempt(email, password)
-      const user = await auth.getUser()
       return response.json({
         status: 'success',
         msg: '登录成功',
@@ -40,6 +39,24 @@ class UserController {
       return response.json({
         status: 'failure',
         msg: '登录失败',
+        data: error.toString()
+      })
+    }
+  }
+
+  async user({ auth, response }) {
+    try {
+      const user = await auth.getUser()
+      return response.json({
+        status: 'success',
+        msg: '获取成功',
+        data: result,
+        user: user
+      })
+    } catch (error) {
+      return response.json({
+        status: 'failure',
+        msg: '获取失败',
         data: error.toString()
       })
     }
