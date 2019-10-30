@@ -27,6 +27,7 @@ class NewsController {
       const data = await HspxsteelNew.query()
         .where(iWhere)
         .select(
+          'id',
           'image',
           'announcer',
           'read_count',
@@ -70,6 +71,7 @@ class NewsController {
       const result = await HspxsteelNew.query()
         .where('status', 1)
         .select(
+          'id',
           'image',
           'announcer',
           'read_count',
