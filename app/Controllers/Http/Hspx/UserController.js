@@ -35,7 +35,8 @@ class UserController {
       return response.json({
         status: 'success',
         msg: '登录成功',
-        data: Object.assign(result, { user: user[0] })
+        data: result,
+        user: user
       })
     } catch (error) {
       return response.json({
