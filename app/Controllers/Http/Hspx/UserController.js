@@ -29,10 +29,13 @@ class UserController {
     const { email, password } = request.only(['email', 'password'])
     try {
       const result = await auth.attempt(email, password)
+      const user = await User.query()
+        .where('email', email)
+        .fetch()
       return response.json({
         status: 'success',
         msg: '登录成功',
-        data: result
+        data: Object.assign(result, { user: user })
       })
     } catch (error) {
       return response.json({
@@ -43,18 +46,18 @@ class UserController {
     }
   }
 
-  async user({ auth, response }) {
+  async logout({ auth, response }) {
     try {
-      const user = await auth.getUser()
+      const user = await auth.logout()
       return response.json({
         status: 'success',
-        msg: '获取成功',
+        msg: '登出成功',
         data: user
       })
     } catch (error) {
       return response.json({
         status: 'failure',
-        msg: '获取失败',
+        msg: '登出失败',
         data: error.toString()
       })
     }
