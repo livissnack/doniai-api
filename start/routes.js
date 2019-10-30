@@ -163,22 +163,6 @@ Route.group(() => {
 
 /*
 |--------------------------------------------------------------------------
-| Routes hspxsteel access data
-|--------------------------------------------------------------------------
-|
-| Http routes are entry points to your web application. You can create
-| routes for different URL's and bind Controller actions to them.
-|
-*/
-Route.group(() => {
-  //access count
-  Route.post('/access_count', 'HspxController.access_count')
-})
-  .namespace('Utils')
-  .prefix('api/v1/hspx')
-
-/*
-|--------------------------------------------------------------------------
 | Routes captcha all methods
 |--------------------------------------------------------------------------
 |
@@ -311,6 +295,8 @@ Route.group(() => {
   Route.get('/product_type', 'ProductTypeController.index')
   Route.post('/product_type', 'ProductTypeController.store')
   Route.delete('/product_type/:id', 'ProductController.destroy')
+
+  Route.post('/access_count', 'AccessLogController.access_count')
 
   Route.post('/login', 'UserController.login')
   Route.post('/register', 'UserController.register')

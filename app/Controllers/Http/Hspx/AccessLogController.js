@@ -1,11 +1,10 @@
 'use strict'
-
 const moment = require('moment')
 const axios = require('axios')
 const APPCODE = '515e2ec03bd04b189959b2c64f049843'
 const HspxsteelAccessLog = use('App/Models/HspxsteelAccessLog')
 
-class HspxController {
+class AccessLogController {
   async access_count({ request, response }) {
     const ip = request.input('ip') || request.ip()
     const { data } = await axios({
@@ -60,4 +59,4 @@ class HspxController {
   }
 }
 
-module.exports = HspxController
+module.exports = AccessLogController
