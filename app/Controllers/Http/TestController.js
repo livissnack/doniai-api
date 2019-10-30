@@ -10,14 +10,15 @@ const {
 const Helpers = use('Helpers')
 const crypto = use('crypto')
 const fs = use('fs')
+const Hash = use('Hash')
 const AipNlpClient = require('baidu-aip-sdk').nlp
 const Env = use('Env')
 const qs = require('querystring')
 
 class TestController {
   async test({ request, response }) {
-    const time = new Date()
-    return formatDate(time)
+    const password = request.input('text')
+    return await Hash.make(password)
   }
 
   /**
