@@ -29,10 +29,12 @@ class UserController {
     const { email, password } = request.only(['email', 'password'])
     try {
       const result = await auth.attempt(email, password)
+      const user = await auth.getUser()
       return response.json({
         status: 'success',
         msg: '登录成功',
-        data: result
+        data: result,
+        user: user
       })
     } catch (error) {
       return response.json({
