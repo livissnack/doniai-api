@@ -186,7 +186,7 @@ class NewsController {
   async destroy({ params, response }) {
     const { id } = params
     try {
-      const result = await Article.find(id).delete()
+      const result = await HspxsteelNew.find(id).delete()
       return response.json({
         status: 'success',
         msg: '删除成功',
@@ -196,6 +196,26 @@ class NewsController {
       return response.json({
         status: 'failure',
         msg: '删除失败',
+        data: error.toString()
+      })
+    }
+  }
+
+  async readNums({ params, response }) {
+    const { id } = params
+    try {
+      const hspxsteelNew = await HspxsteelNew.find(id)
+      hspxsteelNew.read_count += 1
+      await hspxsteelNew.save()
+      return response.json({
+        status: 'success',
+        msg: '更新成功',
+        data: result
+      })
+    } catch (error) {
+      return response.json({
+        status: 'failure',
+        msg: '更新失败',
         data: error.toString()
       })
     }

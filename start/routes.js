@@ -301,6 +301,7 @@ Route.group(() => {
   Route.get('/news/:id', 'NewsController.show')
   Route.put('/news/:id', 'NewsController.update')
   Route.delete('/news/:id', 'NewsController.destroy')
+  Route.get('/news/read_count/:id', 'NewsController.readNums')
 
   Route.get('/product', 'ProductController.index')
   Route.post('/product', 'ProductController.store')
