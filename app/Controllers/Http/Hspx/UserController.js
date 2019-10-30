@@ -49,7 +49,8 @@ class UserController {
 
   async logout({ auth, response }) {
     try {
-      const user = await auth.logout()
+      const apiToken = auth.getAuthHeader()
+      await auth.authenticator('api').revokeTokens([apiToken])
       return response.json({
         status: 'success',
         msg: '登出成功',
