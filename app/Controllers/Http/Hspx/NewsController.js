@@ -29,6 +29,7 @@ class NewsController {
         .select(
           'image',
           'announcer',
+          'read_count',
           'type',
           'status',
           'created_at',
@@ -71,6 +72,7 @@ class NewsController {
         .select(
           'image',
           'announcer',
+          'read_count',
           'type',
           'status',
           'created_at',
@@ -103,6 +105,7 @@ class NewsController {
     const data = request.only([
       'image',
       'announcer',
+      'read_count',
       'type',
       'status',
       'zh_title',

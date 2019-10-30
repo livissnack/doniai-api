@@ -68,6 +68,12 @@ class HspxsteelNewsSchema extends Schema {
         .comment('发布者')
 
       table
+        .integer('read_count')
+        .notNullable()
+        .default(1)
+        .comment('阅读数量')
+
+      table
         .integer('type')
         .notNullable()
         .default(1)
