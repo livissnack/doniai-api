@@ -32,8 +32,7 @@ class UserController {
       return response.json({
         status: 'success',
         msg: '登录成功',
-        data: result,
-        user: user
+        data: result
       })
     } catch (error) {
       return response.json({
