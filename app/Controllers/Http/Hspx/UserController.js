@@ -53,8 +53,7 @@ class UserController {
       await auth.generateForRefreshToken(refreshToken, true)
       return response.json({
         status: 'success',
-        msg: '登出成功',
-        data: user
+        msg: '登出成功'
       })
     } catch (error) {
       return response.json({
