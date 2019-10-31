@@ -50,7 +50,7 @@ class UserController {
   async logout({ auth, response }) {
     try {
       const apiToken = auth.getAuthHeader()
-      await auth.authenticator('api').revokeTokens([apiToken])
+      await auth.generateForRefreshToken(apiToken)
       return response.json({
         status: 'success',
         msg: '登出成功',
