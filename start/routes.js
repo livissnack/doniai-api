@@ -300,7 +300,7 @@ Route.group(() => {
 
   Route.post('/login', 'UserController.login')
   Route.post('/register', 'UserController.register')
-  Route.get('/logout', 'UserController.logout').middleware('auth')
+  Route.get('/logout', 'UserController.logout')
 })
   .namespace('Hspx')
   .prefix('api/v1/hspx')
