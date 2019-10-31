@@ -47,10 +47,11 @@ class UserController {
     }
   }
 
-  async logout({ auth, response }) {
+  async logout({ auth, request, response }) {
     try {
       const apiToken = auth.getAuthHeader()
-      await auth.generateForRefreshToken(apiToken)
+      const user = await User.findBy('email', request.input('email', ''))
+      await auth.revoke(user, [apiToken])
       return response.json({
         status: 'success',
         msg: '登出成功',
