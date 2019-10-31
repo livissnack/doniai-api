@@ -28,7 +28,7 @@ class UserController {
   async login({ auth, request, response }) {
     const { email, password } = request.only(['email', 'password'])
     try {
-      const result = await auth.attempt(email, password)
+      const result = await auth.withRefreshToken().attempt(email, password)
       const user = await User.query()
         .where('email', email)
         .fetch()
@@ -49,9 +49,8 @@ class UserController {
 
   async logout({ auth, request, response }) {
     try {
-      const apiToken = auth.getAuthHeader()
-      const user = await User.findBy('email', request.input('email', ''))
-      await auth.revoke(user, [apiToken])
+      const refreshToken = request.input('refresh_token')
+      await auth.generateForRefreshToken(refreshToken, true)
       return response.json({
         status: 'success',
         msg: '登出成功',
