@@ -5,8 +5,7 @@ const { isEmpty } = require('../../../Utils/Helpers')
 class ProductTypeController {
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
-      const data = await HspxsteelProductType.query().paginate(page, pageSize)
+      const data = await HspxsteelProductType.query().fetch()
       return response.json({
         status: 'success',
         msg: '列表数据获取成功',

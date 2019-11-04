@@ -24,11 +24,7 @@ class ProductController {
         throw new Error('lang no support')
       }
       if (!isEmpty(lang)) {
-        var name_str = `${lang}_name`
-        var content_str = `${lang}_content`
-        var width_str = `${lang}_width`
-        var thickness_str = `${lang}_thickness`
-        var length_str = `${lang}_length`
+        var content_str = `${lang}` === 'zh' ? 'content' : 'en_content'
       }
       const data = await HspxsteelProduct.query()
         .where(iWhere)
@@ -39,11 +35,11 @@ class ProductController {
           'status',
           'created_at',
           'updated_at',
-          name_str,
+          'name',
           content_str,
-          width_str,
-          thickness_str,
-          length_str
+          'width',
+          'thickness',
+          'length'
         )
         .paginate(page, pageSize)
       return response.json({
@@ -71,36 +67,12 @@ class ProductController {
       'instock',
       'product_type_id',
       'status',
-      'zh_name',
-      'zh_content',
-      'zh_width',
-      'zh_thickness',
-      'zh_length',
-      'tr_name',
-      'tr_content',
-      'tr_width',
-      'tr_thickness',
-      'tr_length',
-      'en_name',
+      'name',
+      'content',
       'en_content',
-      'en_width',
-      'en_thickness',
-      'en_length',
-      'ko_name',
-      'ko_content',
-      'ko_width',
-      'ko_thickness',
-      'ko_length',
-      'ja_name',
-      'ja_content',
-      'ja_width',
-      'ja_thickness',
-      'ja_length',
-      'ar_name',
-      'ar_content',
-      'ar_width',
-      'ar_thickness',
-      'ar_length'
+      'width',
+      'thickness',
+      'length'
     ])
     try {
       const hspxsteelProduct = new HspxsteelProduct()
