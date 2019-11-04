@@ -30,6 +30,7 @@ class ProductController {
       const data = await HspxsteelProduct.query()
         .where(iWhere)
         .select(
+          'id',
           'image',
           'instock',
           'product_type_id',
