@@ -69,7 +69,7 @@ class NewsController {
         var content_str = `${lang}_content`
       }
       const result = await HspxsteelNew.query()
-        .where('status', 1)
+        .where({ status: 1, type: 1 })
         .select(
           'id',
           'image',
