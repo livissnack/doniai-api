@@ -1,9 +1,8 @@
 'use strict'
 const HspxsteelProductType = use('App/Models/HspxsteelProductType')
-const { isEmpty } = require('../../../Utils/Helpers')
 
 class ProductTypeController {
-  async index({ request, response }) {
+  async index({ response }) {
     try {
       const data = await HspxsteelProductType.query().fetch()
       return response.json({
