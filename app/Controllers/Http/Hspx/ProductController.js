@@ -58,6 +58,55 @@ class ProductController {
     }
   }
 
+  async all({ request, response }) {
+    try {
+      let iWhere = {}
+      const type = request.input('type')
+      if (!isEmpty(type)) {
+        Object.assign(iWhere, { product_type_id: type })
+      }
+      const status = request.input('status', 1)
+      if (!isEmpty(status)) {
+        Object.assign(iWhere, { status: status })
+      }
+      const lang = request.input('lang')
+      if (!['ar', 'zh', 'tr', 'ko', 'ja', 'en'].includes(lang)) {
+        throw new Error('lang no support')
+      }
+      if (!isEmpty(lang)) {
+        var content_str = `${lang}` === 'zh' ? 'content' : 'en_content'
+      }
+      const data = await HspxsteelProduct.query()
+        .where(iWhere)
+        .select(
+          'id',
+          'image',
+          'instock',
+          'product_type_id',
+          'status',
+          'created_at',
+          'updated_at',
+          'name',
+          content_str,
+          'width',
+          'thickness',
+          'length'
+        )
+        .fetch()
+      return response.json({
+        status: 'success',
+        msg: '获取成功',
+        data: data
+      })
+    } catch (error) {
+      return response.json({
+        status: 'failure',
+        msg: '获取失败',
+        data: error.toString()
+      })
+    }
+  }
+
   /**
    * 品信新闻创建
    * @param {object} request
