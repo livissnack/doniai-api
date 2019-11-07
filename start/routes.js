@@ -123,6 +123,9 @@ Route.group(() => {
   Route.get('/question_types', 'EnumController.getQuestionTypes')
   Route.get('/question_tags', 'EnumController.getQuestionTags')
   Route.get('/course_types', 'EnumController.getCourseTypes')
+
+  //menu management
+  Route.get('/menus', 'MenuController.index')
 })
   .namespace('Api')
   .prefix('api/v1')
