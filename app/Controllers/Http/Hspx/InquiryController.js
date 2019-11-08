@@ -2,10 +2,6 @@
 const HspxsteelInquiry = use('App/Models/HspxsteelInquiry')
 
 class InquiryController {
-  /**
-   * 客户咨询问题创建
-   * @param {*} param0
-   */
   async create({ request, response }) {
     const data = request.only([
       'name',
@@ -19,17 +15,9 @@ class InquiryController {
       const hspxsteelInquiry = new HspxsteelInquiry()
       hspxsteelInquiry.fill(data)
       const result = await hspxsteelInquiry.save()
-      return response.json({
-        status: 'success',
-        msg: '保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

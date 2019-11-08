@@ -2,7 +2,7 @@
 const HspxsteelProductType = use('App/Models/HspxsteelProductType')
 
 class ProductTypeController {
-  async index({ response }) {
+  async index() {
     try {
       const data = await HspxsteelProductType.query().fetch()
       return data
@@ -11,7 +11,7 @@ class ProductTypeController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'ar_value',
       'en_value',
@@ -30,7 +30,7 @@ class ProductTypeController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const result = await HspxsteelProductType.find(id).delete()

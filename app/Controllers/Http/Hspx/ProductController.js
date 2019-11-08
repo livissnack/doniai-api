@@ -3,12 +3,7 @@ const HspxsteelProduct = use('App/Models/HspxsteelProduct')
 const { isEmpty } = require('../../../Utils/Helpers')
 
 class ProductController {
-  /**
-   * 品信产品列表获取
-   * @param {object} request
-   * @param {object} response
-   */
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -50,7 +45,7 @@ class ProductController {
     }
   }
 
-  async all({ request, response }) {
+  async all({ request }) {
     try {
       let iWhere = {}
       const type = request.input('type')
@@ -91,12 +86,7 @@ class ProductController {
     }
   }
 
-  /**
-   * 品信新闻创建
-   * @param {object} request
-   * @param {object} response
-   */
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'image',
       'instock',
@@ -135,7 +125,7 @@ class ProductController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const result = await HspxsteelProduct.find(id).delete()
