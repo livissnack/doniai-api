@@ -10,7 +10,7 @@ const { isEmpty, formatDate } = require('../../../Utils/Helpers')
 class ArticleController {
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const articleType = request.input('article_type')
       if (!isEmpty(articleType)) {
@@ -32,18 +32,10 @@ class ArticleController {
         .with('user')
         .with('articleTag')
         .with('articleType')
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '文章列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章列表数据获取失败',
-        data: error.toString()
-      })
+      error.toString()
     }
   }
 
