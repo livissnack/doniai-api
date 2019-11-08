@@ -110,14 +110,14 @@ Route.group(() => {
   Route.get('/course_types', 'EnumController.getCourseTypes')
 })
   .namespace('Doniai/Backend')
-  .prefix(`doniai/${ApiVersion}`)
+  .prefix(`doniai/backend/${ApiVersion}`)
 
 Route.group(() => {
   //article resource route only index,store,show,update and destroy method
   Route.get('/articles', 'ArticleController.index')
 })
   .namespace('Doniai/Frontend')
-  .prefix(`doniai/${ApiVersion}`)
+  .prefix(`doniai/frontend/${ApiVersion}`)
 
 /* -------------------------------------------------------------------------------------splitline------------------------------------------------------------------------------------*/
 
@@ -133,40 +133,33 @@ Route.group(() => {
 
 Route.group(() => {
   //article resource route only index,store,show,update and destroy method
+  Route.get('/articles', 'ArticleController.index')
+})
+  .namespace('Hspx/Backend')
+  .prefix(`hspx/backend/${ApiVersion}`)
+
+Route.group(() => {
+  //article resource route only index,store,show,update and destroy method
+  Route.post('/access_count', 'AccessLogController.access_count')
+
   Route.post('/inquiry', 'InquiryController.create')
 
-  Route.get('/news', 'NewsController.index')
+  Route.get('/news', 'NewsController.list')
   Route.get('/news/hot', 'NewsController.hot')
-  Route.post('/news', 'NewsController.store')
-  Route.get('/news/:id', 'NewsController.show')
-  Route.put('/news/:id', 'NewsController.update')
-  Route.delete('/news/:id', 'NewsController.destroy')
+  Route.get('/news/:id', 'NewsController.detail')
   Route.get('/news/read_count/:id', 'NewsController.readNums')
 
-  Route.get('/product', 'ProductController.index')
   Route.get('/product/all', 'ProductController.all')
-  Route.post('/product', 'ProductController.store')
-  Route.get('/product/:id', 'ProductController.show')
-  Route.delete('/product/:id', 'ProductController.destroy')
+  Route.get('/product/:id', 'ProductController.detail')
 
-  Route.get('/product_type', 'ProductTypeController.index')
-  Route.post('/product_type', 'ProductTypeController.store')
-  Route.delete('/product_type/:id', 'ProductController.destroy')
-
-  Route.post('/access_count', 'AccessLogController.access_count')
+  Route.get('/product_type', 'ProductTypeController.all')
 
   Route.post('/login', 'UserController.login')
   Route.post('/register', 'UserController.register')
   Route.get('/logout', 'UserController.logout')
 })
-  .namespace('Hspx/Backend')
-  .prefix(`hspx/${ApiVersion}`)
-Route.group(() => {
-  //article resource route only index,store,show,update and destroy method
-  Route.get('/articles', 'ArticleController.index')
-})
   .namespace('Hspx/Frontend')
-  .prefix(`hspx/${ApiVersion}`)
+  .prefix(`hspx/frontend/${ApiVersion}`)
 
 /* -------------------------------------------------------------------------------------splitline------------------------------------------------------------------------------------*/
 

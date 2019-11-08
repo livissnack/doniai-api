@@ -2,7 +2,7 @@
 const HspxsteelProductType = use('App/Models/HspxsteelProductType')
 
 class ProductTypeController {
-  async index() {
+  async all() {
     try {
       const data = await HspxsteelProductType.query().fetch()
       return data

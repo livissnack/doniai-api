@@ -3,7 +3,7 @@ const HspxsteelNew = use('App/Models/HspxsteelNew')
 const { isEmpty } = require('../../../../Utils/Helpers')
 
 class NewsController {
-  async index({ request }) {
+  async list({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -72,7 +72,7 @@ class NewsController {
     }
   }
 
-  async show({ params }) {
+  async detail({ params }) {
     const { id } = params
     try {
       const data = await HspxsteelNew.query()

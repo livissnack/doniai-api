@@ -2,7 +2,7 @@
 const HspxsteelInquiry = use('App/Models/HspxsteelInquiry')
 
 class InquiryController {
-  async create({ request, response }) {
+  async create({ request }) {
     const data = request.only([
       'name',
       'company',
