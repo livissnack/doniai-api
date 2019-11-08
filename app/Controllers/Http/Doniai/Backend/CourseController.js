@@ -2,10 +2,10 @@
 
 const Course = use('App/Models/Course')
 const CourseType = use('App/Models/CourseType')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class CourseController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -40,7 +40,7 @@ class CourseController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'title',
       'intro',
@@ -62,7 +62,7 @@ class CourseController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Course.query()
@@ -74,7 +74,7 @@ class CourseController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only([
       'title',
@@ -97,7 +97,7 @@ class CourseController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const course = await Course.find(id)

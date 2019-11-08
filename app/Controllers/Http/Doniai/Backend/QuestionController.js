@@ -2,10 +2,10 @@
 
 const User = use('App/Models/User')
 const Question = use('App/Models/Question')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class QuestionController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -30,7 +30,7 @@ class QuestionController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only(['content', 'user_id'])
     try {
       const question = new Question()
@@ -42,7 +42,7 @@ class QuestionController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Question.query()
@@ -54,7 +54,7 @@ class QuestionController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only(['content'])
     try {
@@ -67,7 +67,7 @@ class QuestionController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const question = await Question.find(id)

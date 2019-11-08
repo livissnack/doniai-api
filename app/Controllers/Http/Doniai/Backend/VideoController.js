@@ -1,20 +1,9 @@
 'use strict'
 
 const Video = use('App/Models/Video')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
-/**
- * Resourceful controller for interacting with videos
- */
 class VideoController {
-  /**
-   * Show a list of all videos.
-   * GET videos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
@@ -56,13 +45,6 @@ class VideoController {
     }
   }
 
-  /**
-   * Create/save a new video.
-   * POST videos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   */
   async store({ request }) {
     const data = request.only([
       'course_id',
@@ -85,12 +67,6 @@ class VideoController {
     }
   }
 
-  /**
-   * Display a single video.
-   * GET videos/:id
-   *
-   * @param {object} ctx
-   */
   async show({ params }) {
     const { id } = params
     try {
@@ -103,13 +79,6 @@ class VideoController {
     }
   }
 
-  /**
-   * Update video details.
-   * PUT or PATCH videos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   */
   async update({ params, request }) {
     const { id } = params
     const data = request.only([
@@ -133,12 +102,6 @@ class VideoController {
     }
   }
 
-  /**
-   * Delete a video with id.
-   * DELETE videos/:id
-   *
-   * @param {object} ctx
-   */
   async destroy({ params }) {
     const { id } = params
     try {

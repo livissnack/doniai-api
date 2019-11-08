@@ -2,7 +2,7 @@
 const Mail = use('Mail')
 
 class EmailController {
-  async send({ request, response }) {
+  async send({ request }) {
     try {
       const formMail = request.input('form', 'livissnack@mail.doniai.com')
       const toMail = request.input('to', 'guanxin@tinytiger.cn')
@@ -15,18 +15,9 @@ class EmailController {
           message.subject('Doniai Team')
         }
       )
-      return response.json({
-        status: 'success',
-        msg: '邮件发送成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      console.log(error)
-      return response.json({
-        status: 'failure',
-        msg: '邮件发送失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

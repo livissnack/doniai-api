@@ -1,10 +1,10 @@
 'use strict'
 
 const Link = use('App/Models/Link')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class LinkController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -33,7 +33,7 @@ class LinkController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only(['name', 'url', 'is_show', 'type'])
     try {
       const link = new Link()
@@ -45,7 +45,7 @@ class LinkController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Link.query()
@@ -57,7 +57,7 @@ class LinkController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only(['name', 'url', 'is_show', 'type'])
     try {
@@ -70,7 +70,7 @@ class LinkController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const link = await Link.find(id)

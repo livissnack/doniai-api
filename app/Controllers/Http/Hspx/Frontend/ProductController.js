@@ -1,6 +1,6 @@
 'use strict'
 const HspxsteelProduct = use('App/Models/HspxsteelProduct')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class ProductController {
   async index({ request }) {
@@ -86,30 +86,7 @@ class ProductController {
     }
   }
 
-  async store({ request }) {
-    const data = request.only([
-      'image',
-      'instock',
-      'product_type_id',
-      'status',
-      'name',
-      'content',
-      'en_content',
-      'width',
-      'thickness',
-      'length'
-    ])
-    try {
-      const hspxsteelProduct = new HspxsteelProduct()
-      hspxsteelProduct.fill(data)
-      const result = await hspxsteelProduct.save()
-      return result
-    } catch (error) {
-      return error.toString()
-    }
-  }
-
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await HspxsteelProduct.query()
@@ -117,11 +94,7 @@ class ProductController {
         .fetch()
       return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 

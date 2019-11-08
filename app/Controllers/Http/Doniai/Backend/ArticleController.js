@@ -5,7 +5,7 @@ const User = use('App/Models/User')
 const Article = use('App/Models/Article')
 const ArticleTag = use('App/Models/ArticleTag')
 const ArticleType = use('App/Models/ArticleType')
-const { isEmpty, formatDate } = require('../../../Utils/Helpers')
+const { isEmpty, formatDate } = require('../../../../Utils/Helpers')
 
 class ArticleController {
   async index({ request }) {
@@ -110,7 +110,7 @@ class ArticleController {
     }
   }
 
-  async export({ request, response }) {
+  async export() {
     try {
       const workbook = new Excel.Workbook()
       const worksheet = workbook.addWorksheet('Sales Data')
@@ -133,26 +133,11 @@ class ArticleController {
       data.forEach((item, index) => {
         worksheet.addRow({
           ...item
-          // productTotals: generateProductTotalsCell(worksheet, index + 1)
         })
       })
-
-      // worksheet.getRow(1).eachCell((cell) => {
-      //   cell.font = { bold: true };
-      // });
-
-      // worksheet.views = [
-      //   { state: 'frozen', xSplit: 1, ySplit: 1, activeCell: 'B2' },
-      // ];
-
       await workbook.xlsx.writeFile('sales-report.xlsx')
     } catch (error) {
-      console.log(error)
-      return response.json({
-        status: 'failure',
-        msg: '文章删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

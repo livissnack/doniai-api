@@ -2,10 +2,10 @@
 
 const User = use('App/Models/User')
 const Comment = use('App/Models/Comment')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class CommentController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -32,7 +32,7 @@ class CommentController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'comment_id',
       'comment_type',
@@ -56,7 +56,7 @@ class CommentController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Comment.query()
@@ -69,7 +69,7 @@ class CommentController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const content = request.input('content')
     try {
@@ -82,7 +82,7 @@ class CommentController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const comment = await Comment.find(id)

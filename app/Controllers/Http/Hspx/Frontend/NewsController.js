@@ -1,12 +1,8 @@
 'use strict'
 const HspxsteelNew = use('App/Models/HspxsteelNew')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class NewsController {
-  /**
-   * 品信新闻列表获取
-   * @param {object} request
-   */
   async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
@@ -44,10 +40,6 @@ class NewsController {
     }
   }
 
-  /**
-   * 品信热门新闻获取
-   * @param {object} request
-   */
   async hot({ request }) {
     try {
       const lang = request.input('lang')
@@ -80,40 +72,6 @@ class NewsController {
     }
   }
 
-  /**
-   * 品信新闻创建
-   * @param {object} request
-   */
-  async store({ request }) {
-    const data = request.only([
-      'image',
-      'announcer',
-      'read_count',
-      'type',
-      'status',
-      'zh_title',
-      'zh_content',
-      'tr_title',
-      'tr_content',
-      'en_title',
-      'en_content',
-      'ko_title',
-      'ko_content',
-      'ja_title',
-      'ja_content',
-      'ar_title',
-      'ar_content'
-    ])
-    try {
-      const hspxsteelNew = new HspxsteelNew()
-      hspxsteelNew.fill(data)
-      const result = await hspxsteelNew.save()
-      return result
-    } catch (error) {
-      return error.toString()
-    }
-  }
-
   async show({ params }) {
     const { id } = params
     try {
@@ -121,30 +79,6 @@ class NewsController {
         .where('id', id)
         .fetch()
       return data
-    } catch (error) {
-      return error.toString()
-    }
-  }
-
-  async update({ params, request }) {
-    const { id } = params
-    const key = request.input('key')
-    const value = request.input('value')
-    try {
-      const result = await HspxsteelNew.query()
-        .where('id', id)
-        .update(key, value)
-      return result
-    } catch (error) {
-      return error.toString()
-    }
-  }
-
-  async destroy({ params }) {
-    const { id } = params
-    try {
-      const result = await HspxsteelNew.find(id).delete()
-      return result
     } catch (error) {
       return error.toString()
     }

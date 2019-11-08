@@ -3,10 +3,10 @@
 const User = use('App/Models/User')
 const Replay = use('App/Models/Replay')
 const Question = use('App/Models/Question')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class ReplayController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -40,7 +40,7 @@ class ReplayController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only(['question_id', 'pid', 'user_id', 'content'])
     try {
       const replay = new Replay()
@@ -52,7 +52,7 @@ class ReplayController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Replay.query()
@@ -64,7 +64,7 @@ class ReplayController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only(['content'])
     try {
@@ -77,7 +77,7 @@ class ReplayController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const replay = await Replay.find(id)

@@ -1,43 +1,23 @@
 'use strict'
 
-const Hash = use('Hash')
 const Mail = use('Mail')
 const User = use('App/Models/User')
 const RandomAvatar = use('random-avatar')
 const RandomName = use('username-generator')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class UserController {
-  /**
-   * user login method
-   * @auth {object} auth object
-   * @request {object} request object
-   * @response {object} response object
-   */
-  async login({ auth, request, response }) {
+  async login({ auth, request }) {
     const { email, password } = request.all()
     try {
       const loginStatus = await auth.attempt(email, password)
-      return response.json({
-        status: 'success',
-        msg: '登录成功',
-        data: loginStatus
-      })
+      return loginStatus
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '登录失败' + password,
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  /**
-   * user register method
-   * @request {object} request object
-   * @response {object} response object
-   */
-  async register({ request, response }) {
+  async register({ request }) {
     const { email, password } = request.all()
     try {
       const userData = {
@@ -58,63 +38,33 @@ class UserController {
             .subject('Welcome to doniai')
         }
       )
-      return response.json({
-        status: 'success',
-        msg: '注册成功',
+      return {
         data: user,
         emailSendStatus: emailSendStatus
-      })
+      }
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '注册失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  /**
-   * user logout method
-   * @reponse {object} response object
-   */
-  async logout({ auth, response }) {
+  async logout({ auth }) {
     try {
       const logoutStatus = await auth.logout()
-      return response.json({
-        status: 'success',
-        msg: '退出成功',
-        data: logoutStatus
-      })
+      return logoutStatus
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '退出失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  /**
-   * user detail method
-   * @auth {object} auth object
-   * @params {object} params object
-   */
-  async detail({ auth, params, response }) {
+  async detail({ auth, params }) {
     if (auth.user.id !== Number(params.id)) {
-      return response.json({
-        status: 'failure',
-        msg: '用户信息获取失败'
-      })
+      return 'failure'
     }
     const user = await auth.user
-    return response.json({
-      status: 'success',
-      msg: '用户信息获取成功',
-      data: user
-    })
+    return user
   }
 
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -189,7 +139,7 @@ class UserController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'username',
       'nikename',
@@ -215,7 +165,7 @@ class UserController {
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await User.query()
@@ -227,7 +177,7 @@ class UserController {
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only([
       'username',
@@ -254,7 +204,7 @@ class UserController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const user = await User.find(id)

@@ -1,7 +1,7 @@
 'use strict'
 
 const BlackList = use('App/Models/BlackList')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class BlackListController {
   async index({ request }) {

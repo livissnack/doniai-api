@@ -1,7 +1,7 @@
 'use strict'
 
 const Book = use('App/Models/Book')
-const { isEmpty } = require('../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class BookController {
   async index({ request }) {
