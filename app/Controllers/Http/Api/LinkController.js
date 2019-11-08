@@ -6,7 +6,7 @@ const { isEmpty } = require('../../../Utils/Helpers')
 class LinkController {
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const name = request.input('name')
       if (!isEmpty(name)) {
@@ -26,18 +26,10 @@ class LinkController {
       }
       const data = await Link.query()
         .where(iWhere)
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '链接列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '链接列表数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -47,17 +39,9 @@ class LinkController {
       const link = new Link()
       link.fill(data)
       const result = await link.save()
-      return response.json({
-        status: 'success',
-        msg: '链接保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '链接保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -67,17 +51,9 @@ class LinkController {
       const data = await Link.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '链接数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '链接数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -88,17 +64,9 @@ class LinkController {
       const result = await Link.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '链接数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '链接数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -107,17 +75,9 @@ class LinkController {
     try {
       const link = await Link.find(id)
       const result = await link.delete()
-      return response.json({
-        status: 'success',
-        msg: '链接数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '链接数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

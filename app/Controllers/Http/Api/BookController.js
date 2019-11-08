@@ -4,9 +4,9 @@ const Book = use('App/Models/Book')
 const { isEmpty } = require('../../../Utils/Helpers')
 
 class BookController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const name = request.input('name')
       if (!isEmpty(name)) {
@@ -18,98 +18,58 @@ class BookController {
       }
       const data = await Book.query()
         .where(iWhere)
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '书籍列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '书籍列表数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only(['name', 'intro', 'is_recommend', 'image'])
     try {
       const book = new Book()
       book.fill(data)
       const result = await book.save()
-      return response.json({
-        status: 'success',
-        msg: '书籍保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '书籍保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Book.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '书籍数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '书籍数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only(['name', 'intro', 'is_recommend', 'image'])
     try {
       const result = await Comment.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '书籍数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '书籍数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const book = await Book.find(id)
       const result = await book.delete()
-      return response.json({
-        status: 'success',
-        msg: '书籍数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '书籍数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

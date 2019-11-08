@@ -8,7 +8,7 @@ const ArticleType = use('App/Models/ArticleType')
 const { isEmpty, formatDate } = require('../../../Utils/Helpers')
 
 class ArticleController {
-  async index({ request, response }) {
+  async index({ request }) {
     try {
       const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
@@ -39,7 +39,7 @@ class ArticleController {
     }
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'title',
       'image',
@@ -53,21 +53,13 @@ class ArticleController {
       article.fill(data)
       article.merge({ publish_at: formatDate(new Date()) })
       const result = await article.save()
-      return response.json({
-        status: 'success',
-        msg: '文章保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const articleId = params.id
     try {
       const data = await Article.query()
@@ -76,77 +68,45 @@ class ArticleController {
         .with('articleTag')
         .with('articleType')
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '文章数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const content = request.input('content')
     try {
       const result = await Article.query()
         .where('id', id)
         .update({ content: content })
-      return response.json({
-        status: 'success',
-        msg: '文章修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const article = await Article.find(id)
       const result = await article.delete()
-      return response.json({
-        status: 'success',
-        msg: '文章删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async batchDel({ request, response }) {
+  async batchDel({ request }) {
     try {
       const ids = request.input('ids')
       const result = await Article.query()
         .whereIn('id', ids)
         .delete()
-      return response.json({
-        status: 'success',
-        msg: '文章删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '文章删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 

@@ -7,7 +7,7 @@ const { isEmpty } = require('../../../Utils/Helpers')
 class CourseController {
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const course_type = request.input('course_type')
       if (!isEmpty(course_type)) {
@@ -33,18 +33,10 @@ class CourseController {
       const data = await Course.query()
         .where(iWhere)
         .with('courseType')
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '课程列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '课程列表数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -64,17 +56,9 @@ class CourseController {
       const course = new Course()
       course.fill(data)
       const result = await course.save()
-      return response.json({
-        status: 'success',
-        msg: '课程保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '课程保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -84,17 +68,9 @@ class CourseController {
       const data = await Course.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '课程数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '课程数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -115,17 +91,9 @@ class CourseController {
       const result = await Course.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '课程数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '课程数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -134,17 +102,9 @@ class CourseController {
     try {
       const course = await Course.find(id)
       const result = await course.delete()
-      return response.json({
-        status: 'success',
-        msg: '课程数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '课程数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

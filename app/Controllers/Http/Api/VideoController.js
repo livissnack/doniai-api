@@ -15,9 +15,9 @@ class VideoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async index({ request, response }) {
+  async index({ request }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const course_id = request.input('course_id')
       if (!isEmpty(course_id)) {
@@ -49,18 +49,10 @@ class VideoController {
       const data = await Video.query()
         .where(iWhere)
         .with('course')
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '视频列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '视频列表数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -70,9 +62,8 @@ class VideoController {
    *
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
    */
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'course_id',
       'name',
@@ -88,17 +79,9 @@ class VideoController {
       const video = new Video()
       video.fill(data)
       const result = await video.save()
-      return response.json({
-        status: 'success',
-        msg: '视频保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '视频保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -107,25 +90,16 @@ class VideoController {
    * GET videos/:id
    *
    * @param {object} ctx
-   * @param {Response} ctx.response
    */
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await Video.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '视频数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '视频数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -135,9 +109,8 @@ class VideoController {
    *
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const data = request.only([
       'course_id',
@@ -154,17 +127,9 @@ class VideoController {
       const result = await Video.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '视频数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '视频数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -173,24 +138,15 @@ class VideoController {
    * DELETE videos/:id
    *
    * @param {object} ctx
-   * @param {Response} ctx.response
    */
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const video = await Video.find(id)
       const result = await video.delete()
-      return response.json({
-        status: 'success',
-        msg: '视频数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '视频数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

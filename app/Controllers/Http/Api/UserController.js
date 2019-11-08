@@ -116,7 +116,7 @@ class UserController {
 
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const username = request.input('username')
       if (!isEmpty(username)) {
@@ -182,18 +182,10 @@ class UserController {
       }
       const data = await User.query()
         .where(iWhere)
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '用户列表数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '用户列表数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -217,17 +209,9 @@ class UserController {
       const user = new User()
       user.fill(data)
       const result = await user.save()
-      return response.json({
-        status: 'success',
-        msg: '用户保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '用户保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -237,17 +221,9 @@ class UserController {
       const data = await User.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '用户数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '用户数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -272,17 +248,9 @@ class UserController {
       const result = await User.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '用户数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '用户数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -291,17 +259,9 @@ class UserController {
     try {
       const user = await User.find(id)
       const result = await user.delete()
-      return response.json({
-        status: 'success',
-        msg: '用户数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '用户数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

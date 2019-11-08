@@ -7,7 +7,7 @@ const { isEmpty } = require('../../../Utils/Helpers')
 class QuestionController {
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const username = request.input('username')
       if (!isEmpty(username)) {
@@ -23,18 +23,10 @@ class QuestionController {
         .with('user')
         .with('questionTag')
         .with('questionType')
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '问题数据获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '问题数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -44,17 +36,9 @@ class QuestionController {
       const question = new Question()
       question.fill(data)
       const result = await question.save()
-      return response.json({
-        status: 'success',
-        msg: '问题保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '问题保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -64,17 +48,9 @@ class QuestionController {
       const data = await Question.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '问题数据获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '问题数据获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -85,17 +61,9 @@ class QuestionController {
       const result = await Question.query()
         .where('id', id)
         .update(data)
-      return response.json({
-        status: 'success',
-        msg: '问题数据修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '问题数据修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -104,17 +72,9 @@ class QuestionController {
     try {
       const question = await Question.find(id)
       const result = await question.delete()
-      return response.json({
-        status: 'success',
-        msg: '问题数据删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '问题数据删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }
