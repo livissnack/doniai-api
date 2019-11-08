@@ -132,8 +132,19 @@ Route.group(() => {
 */
 
 Route.group(() => {
-  //article resource route only index,store,show,update and destroy method
-  Route.get('/articles', 'ArticleController.index')
+  //news resource route only index,store,show,update and destroy method
+  Route.get('/news', 'NewsController.index')
+  Route.post('/news', 'NewsController.store')
+  Route.get('/news/:id', 'NewsController.show')
+  Route.put('/news/:id', 'NewsController.update')
+  Route.delete('/news/:id', 'NewsController.destroy')
+
+  //product resource route only index,store,show,update and destroy method
+  Route.get('/product', 'ProductController.index')
+  Route.post('/product', 'ProductController.store')
+  Route.get('/product/:id', 'ProductController.show')
+  Route.put('/product/:id', 'ProductController.update')
+  Route.delete('/product/:id', 'ProductController.destroy')
 })
   .namespace('Hspx/Backend')
   .prefix(`hspx/backend/${ApiVersion}`)
