@@ -126,6 +126,8 @@ Route.group(() => {
 
   //menu management
   Route.get('/menus', 'MenuController.index')
+  Route.get('/menu/groups', 'MenuController.groups')
+  Route.get('/menu/items', 'MenuController.items')
 })
   .namespace('Api')
   .prefix('api/v1')
