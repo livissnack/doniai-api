@@ -10,7 +10,7 @@ class ProductController {
    */
   async index({ request, response }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const type = request.input('type')
       if (!isEmpty(type)) {
@@ -43,18 +43,10 @@ class ProductController {
           'thickness',
           'length'
         )
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -93,17 +85,9 @@ class ProductController {
           'length'
         )
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -129,17 +113,9 @@ class ProductController {
       const hspxsteelProduct = new HspxsteelProduct()
       hspxsteelProduct.fill(data)
       const result = await hspxsteelProduct.save()
-      return response.json({
-        status: 'success',
-        msg: '保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
@@ -149,11 +125,7 @@ class ProductController {
       const data = await HspxsteelProduct.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
       return response.json({
         status: 'failure',
@@ -167,17 +139,9 @@ class ProductController {
     const { id } = params
     try {
       const result = await HspxsteelProduct.find(id).delete()
-      return response.json({
-        status: 'success',
-        msg: '删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }

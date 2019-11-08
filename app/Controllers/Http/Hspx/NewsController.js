@@ -6,11 +6,10 @@ class NewsController {
   /**
    * 品信新闻列表获取
    * @param {object} request
-   * @param {object} response
    */
-  async index({ request, response }) {
+  async index({ request }) {
     try {
-      const { page, pageSize } = request.only(['page', 'pageSize'])
+      const { page, perPage } = request.only(['page', 'perPage'])
       let iWhere = {}
       const type = request.input('type')
       if (!isEmpty(type)) {
@@ -38,27 +37,18 @@ class NewsController {
           title_str,
           content_str
         )
-        .paginate(page, pageSize)
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: data
-      })
+        .paginate(page, perPage)
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
   /**
    * 品信热门新闻获取
    * @param {object} request
-   * @param {object} response
    */
-  async hot({ request, response }) {
+  async hot({ request }) {
     try {
       const lang = request.input('lang')
       if (!['ar', 'zh', 'tr', 'ko', 'ja', 'en'].includes(lang)) {
@@ -84,26 +74,17 @@ class NewsController {
         )
         .orderBy('created_at', 'desc')
         .pick(6)
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
   /**
    * 品信新闻创建
    * @param {object} request
-   * @param {object} response
    */
-  async store({ request, response }) {
+  async store({ request }) {
     const data = request.only([
       'image',
       'announcer',
@@ -127,41 +108,25 @@ class NewsController {
       const hspxsteelNew = new HspxsteelNew()
       hspxsteelNew.fill(data)
       const result = await hspxsteelNew.save()
-      return response.json({
-        status: 'success',
-        msg: '保存成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '保存失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async show({ params, response }) {
+  async show({ params }) {
     const { id } = params
     try {
       const data = await HspxsteelNew.query()
         .where('id', id)
         .fetch()
-      return response.json({
-        status: 'success',
-        msg: '获取成功',
-        data: data
-      })
+      return data
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '获取失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const { id } = params
     const key = request.input('key')
     const value = request.input('value')
@@ -169,55 +134,31 @@ class NewsController {
       const result = await HspxsteelNew.query()
         .where('id', id)
         .update(key, value)
-      return response.json({
-        status: 'success',
-        msg: '修改成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '修改失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params }) {
     const { id } = params
     try {
       const result = await HspxsteelNew.find(id).delete()
-      return response.json({
-        status: 'success',
-        msg: '删除成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '删除失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 
-  async readNums({ params, response }) {
+  async readNums({ params }) {
     const { id } = params
     try {
       const hspxsteelNew = await HspxsteelNew.find(id)
       hspxsteelNew.read_count += 1
       await hspxsteelNew.save()
-      return response.json({
-        status: 'success',
-        msg: '更新成功',
-        data: result
-      })
+      return result
     } catch (error) {
-      return response.json({
-        status: 'failure',
-        msg: '更新失败',
-        data: error.toString()
-      })
+      return error.toString()
     }
   }
 }
