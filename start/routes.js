@@ -149,6 +149,7 @@ Route.group(() => {
   Route.get('/news/:id', 'NewsController.detail')
   Route.get('/news/read_count/:id', 'NewsController.readNums')
 
+  Route.get('/product', 'ProductController.list')
   Route.get('/product/all', 'ProductController.all')
   Route.get('/product/:id', 'ProductController.detail')
 

@@ -3,6 +3,38 @@ const HspxsteelProduct = use('App/Models/HspxsteelProduct')
 const { isEmpty } = require('../../../../Utils/Helpers')
 
 class ProductController {
+  async list({ request }) {
+    try {
+      const lang = request.input('lang')
+      if (!['ar', 'zh', 'tr', 'ko', 'ja', 'en'].includes(lang)) {
+        throw new Error('lang no support')
+      }
+      if (!isEmpty(lang)) {
+        var content_str = `${lang}` === 'zh' ? 'content' : 'en_content'
+      }
+      const data = await HspxsteelProduct.query()
+        .where({ status: 1 })
+        .select(
+          'id',
+          'image',
+          'instock',
+          'product_type_id',
+          'status',
+          'created_at',
+          'updated_at',
+          'name',
+          content_str,
+          'width',
+          'thickness',
+          'length'
+        )
+        .fetch()
+      return data
+    } catch (error) {
+      return error.toString()
+    }
+  }
+
   async all({ request }) {
     try {
       let iWhere = {}
