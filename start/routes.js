@@ -145,6 +145,22 @@ Route.group(() => {
   Route.get('/product/:id', 'ProductController.show')
   Route.put('/product/:id', 'ProductController.update')
   Route.delete('/product/:id', 'ProductController.destroy')
+
+  //user resource route only index,store,show,update and destroy method
+  Route.get('/user', 'UserController.index')
+  Route.get('/user/:id', 'UserController.show')
+  Route.put('/user/:id', 'UserController.update')
+  Route.delete('/user/:id', 'UserController.destroy')
+
+  //inpuiry resource route only index,store,show,update and destroy method
+  Route.get('/inpuiry', 'InpuiryController.index')
+  Route.get('/inpuiry/:id', 'InpuiryController.show')
+  Route.delete('/inpuiry/:id', 'InpuiryController.destroy')
+
+  //accesslog resource route only index,store,show,update and destroy method
+  Route.get('/accesslog', 'AccessLogController.index')
+  Route.get('/accesslog/:id', 'AccessLogController.show')
+  Route.delete('/accesslog/:id', 'AccessLogController.destroy')
 })
   .namespace('Hspx/Backend')
   .prefix(`hspx/backend/${ApiVersion}`)
