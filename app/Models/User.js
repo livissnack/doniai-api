@@ -21,6 +21,24 @@ class User extends Model {
     })
   }
 
+  static get computed() {
+    return ['type_text', 'status_text', 'origin_text']
+  }
+
+  getTypeText({ type }) {
+    const mapText = ['未知', '行业新闻', '品信新闻']
+    return mapText[type]
+  }
+
+  getStatusText({ status }) {
+    return status === 0 ? '激活' : '待激活'
+  }
+
+  getOriginText({ origin }) {
+    const mapText = ['未知', '多尼爱网站', 'hspx网站']
+    return mapText[origin]
+  }
+
   /**
    * A relationship on tokens is required for auth to
    * work. Since features like `refreshTokens` or
