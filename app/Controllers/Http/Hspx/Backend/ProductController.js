@@ -22,6 +22,7 @@ class ProductController {
       }
       const data = await HspxsteelProduct.query()
         .where(iWhere)
+        .with('productType')
         .paginate(page, perPage)
       return data
     } catch (error) {
