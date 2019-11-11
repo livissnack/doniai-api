@@ -1,22 +1,13 @@
 'use strict'
 
-const {
-  formatDate,
-  utilsPath,
-  httpPost,
-  getBaiduAiAccessToken,
-  securtFileName
-} = require('../../Utils/Helpers')
+const { utilsPath, securtFileName } = require('../../Utils/Helpers')
 const Helpers = use('Helpers')
 const crypto = use('crypto')
 const fs = use('fs')
 const Hash = use('Hash')
-const AipNlpClient = require('baidu-aip-sdk').nlp
-const Env = use('Env')
-const qs = require('querystring')
 
 class TestController {
-  async test({ request, response }) {
+  async test({ request }) {
     const password = request.input('text')
     return await Hash.make(password)
   }
@@ -25,7 +16,7 @@ class TestController {
    * 将文件以流方法传输到客户端
    * @param {*} param0
    */
-  async download({ request, response }) {
+  async download({ response }) {
     return await response.download(utilsPath('Helpers.js'))
   }
 
@@ -69,48 +60,6 @@ class TestController {
     } catch (error) {
       return error.message
     }
-  }
-
-  /**
-   * 文本审核
-   * @param {request} object
-   * @param {response} object
-   */
-  async filterText({ request, response }) {
-    const url = `https://aip.baidubce.com/oauth/2.0/token?${qs.stringify({
-      grant_type: 'client_credentials',
-      client_id: Env.get('BAIDU_API_KEY'),
-      client_secret: Env.get('BAIDU_SECRET_KEY')
-    })}`
-    const accessToken = await getBaiduAiAccessToken(url)
-    const url1 = `https://aip.baidubce.com/rest/2.0/antispam/v2/spam?access_token=${accessToken.data.access_token}`
-    const data = await httpPost(
-      url1,
-      { content: 'vpn翻墙' },
-      { 'Content-Type': 'application/x-www-form-urlencoded' }
-    )
-    return data
-  }
-
-  /**
-   * 图片审核
-   * @param {request} object
-   * @param {response} object
-   */
-  async filterImage({ request, response }) {
-    const url = `https://aip.baidubce.com/oauth/2.0/token?${qs.stringify({
-      grant_type: 'client_credentials',
-      client_id: Env.get('BAIDU_API_KEY'),
-      client_secret: Env.get('BAIDU_SECRET_KEY')
-    })}`
-    const accessToken = await getBaiduAiAccessToken(url)
-    const url1 = `https://aip.baidubce.com/rest/2.0/solution/v1/img_censor/v2/user_defined?access_token=${accessToken.data.access_token}`
-    const data = await httpPost(
-      url1,
-      { image: 'Base64 or image url' },
-      { 'Content-Type': 'application/json;charset=utf-8' }
-    )
-    return data
   }
 }
 
