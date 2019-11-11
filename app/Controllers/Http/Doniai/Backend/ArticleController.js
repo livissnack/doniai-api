@@ -5,7 +5,7 @@ const User = use('App/Models/User')
 const Article = use('App/Models/Article')
 const ArticleTag = use('App/Models/ArticleTag')
 const ArticleType = use('App/Models/ArticleType')
-const { isEmpty, formatDate } = require('../../../../Utils/Helpers')
+const { isEmpty } = require('../../../../Utils/Helpers')
 
 class ArticleController {
   async index({ request }) {
@@ -51,7 +51,6 @@ class ArticleController {
     try {
       const article = new Article()
       article.fill(data)
-      article.merge({ publish_at: formatDate(new Date()) })
       const result = await article.save()
       return result
     } catch (error) {
