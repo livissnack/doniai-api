@@ -152,10 +152,10 @@ Route.group(() => {
   Route.put('/user/:id', 'UserController.update')
   Route.delete('/user/:id', 'UserController.destroy')
 
-  //inpuiry resource route only index,store,show,update and destroy method
-  Route.get('/inpuiry', 'InpuiryController.index')
-  Route.get('/inpuiry/:id', 'InpuiryController.show')
-  Route.delete('/inpuiry/:id', 'InpuiryController.destroy')
+  //inquiry resource route only index,store,show,update and destroy method
+  Route.get('/inquiry', 'InquiryController.index')
+  Route.get('/inquiry/:id', 'InquiryController.show')
+  Route.delete('/inquiry/:id', 'InquiryController.destroy')
 
   //accesslog resource route only index,store,show,update and destroy method
   Route.get('/accesslog', 'AccessLogController.index')
