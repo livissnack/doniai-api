@@ -19,6 +19,25 @@ class ArticleController {
     }
   }
 
+  async store({ request }) {
+    const data = request.only([
+      "title",
+      "image",
+      "user_id",
+      "article_type_id",
+      "article_tag_id",
+      "content"
+    ]);
+    try {
+      const article = new Article();
+      article.fill(data);
+      const result = await article.save();
+      return result;
+    } catch (error) {
+      return error.toString();
+    }
+  }
+
   async show({ params }) {
     const articleId = params.id;
     try {

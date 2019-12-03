@@ -120,7 +120,20 @@ Route.group(() => {
   Route.get("/videos/:id", "VideoController.show");
 
   Route.get("/questions", "QuestionController.index");
+  Route.post("/questions", "QuestionController.store");
   Route.get("/questions/:id", "QuestionController.show");
+
+  Route.get("/articles", "ArticleController.index");
+  Route.post("/articles", "ArticleController.store");
+  Route.get("/articles/:id", "ArticleController.show");
+
+  Route.get("/books", "BookController.index");
+  Route.get("/books/:id", "BookController.show");
+
+  Route.get("/comments", "CommentController.index");
+  Route.post("/comments", "CommentController.store");
+
+  Route.get("/replays", "ReplayController.index");
 })
   .namespace("Doniai/Frontend")
   .prefix(`doniai/frontend/${ApiVersion}`);

@@ -19,6 +19,18 @@ class QuestionController {
     }
   }
 
+  async store({ request }) {
+    const data = request.only(["content", "user_id"]);
+    try {
+      const question = new Question();
+      question.fill(data);
+      const result = await question.save();
+      return result;
+    } catch (error) {
+      return error.toString();
+    }
+  }
+
   async show({ params }) {
     const { id } = params;
     try {
