@@ -21,7 +21,7 @@ Route.get("/", "TestController.test");
 
 /*
 |--------------------------------------------------------------------------
-| Routes Doniai Frontend And Backend management interface
+| Routes Doniai Frontend management interface
 |--------------------------------------------------------------------------
 |
 | Http routes are entry points to your web application. You can create
@@ -112,6 +112,15 @@ Route.group(() => {
   .namespace("Doniai/Backend")
   .prefix(`doniai/backend/${ApiVersion}`);
 
+/*
+|--------------------------------------------------------------------------
+| Routes Doniai Backend management interface
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
 Route.group(() => {
   Route.get("/courses", "CourseController.index");
   Route.get("/courses/:id", "CourseController.show");
@@ -142,7 +151,7 @@ Route.group(() => {
 
 /*
 |--------------------------------------------------------------------------
-| Routes Doniai Frontend management interface
+| Routes Hspx Backend management interface
 |--------------------------------------------------------------------------
 |
 | Http routes are entry points to your web application. You can create
@@ -184,6 +193,15 @@ Route.group(() => {
   .namespace("Hspx/Backend")
   .prefix(`hspx/backend/${ApiVersion}`);
 
+/*
+|--------------------------------------------------------------------------
+| Routes Hspx Frontend management interface
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URL's and bind Controller actions to them.
+|
+*/
 Route.group(() => {
   //article resource route only index,store,show,update and destroy method
   Route.post("/access_count", "AccessLogController.access_count");
@@ -224,6 +242,11 @@ Route.group(() => {
   Route.get("/menus", "MenuController.index");
   Route.get("/menu/groups", "MenuController.groups");
   Route.get("/menu/items", "MenuController.items");
+
+  //user management
+  Route.post("/login", "UserController.login");
+  Route.post("/register", "UserController.register");
+  Route.get("/logout", "UserController.logout");
 })
   .namespace("System")
   .prefix(`system/${ApiVersion}`);
