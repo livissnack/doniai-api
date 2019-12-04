@@ -245,7 +245,6 @@ Route.group(() => {
 
   //user management
   Route.post("/login", "UserController.login");
-  Route.post("/register", "UserController.register");
   Route.get("/logout", "UserController.logout");
 })
   .namespace("System")
