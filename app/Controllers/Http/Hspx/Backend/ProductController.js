@@ -1,91 +1,89 @@
-'use strict'
+"use strict";
 
-const HspxsteelProduct = use('App/Models/HspxsteelProduct')
-const { isEmpty } = require('../../../../Utils/Helpers')
+const HspxsteelProduct = use("App/Models/HspxsteelProduct");
+const { isEmpty } = require("../../../../Utils/Helpers");
 
 class ProductController {
   async index({ request }) {
     try {
-      const { page, perPage } = request.only(['page', 'perPage'])
-      let iWhere = {}
-      const id = request.input('id')
+      const { page, perPage } = request.only(["page", "perPage"]);
+      let iWhere = {};
+      const id = request.input("id");
       if (!isEmpty(id)) {
-        Object.assign(iWhere, { id: id })
+        Object.assign(iWhere, { id: id });
       }
-      const status = request.input('status')
+      const status = request.input("status");
       if (!isEmpty(status)) {
-        Object.assign(iWhere, { status: status })
+        Object.assign(iWhere, { status: status });
       }
-      const name = request.input('name')
+      const name = request.input("name");
       if (!isEmpty(name)) {
-        Object.assign(iWhere, { name: name })
+        Object.assign(iWhere, { name: name });
       }
       const data = await HspxsteelProduct.query()
         .where(iWhere)
-        .with('productType')
-        .paginate(page, perPage)
-      return data
+        .with("productType")
+        .paginate(page, perPage);
+      return data;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async store({ request }) {
     const data = request.only([
-      'image',
-      'name',
-      'content',
-      'en_content',
-      'instock',
-      'width',
-      'thickness',
-      'length'
-    ])
+      "image",
+      "name",
+      "content",
+      "en_content",
+      "instock",
+      "width",
+      "thickness",
+      "length"
+    ]);
     try {
-      const hspxsteelProduct = new HspxsteelProduct()
-      hspxsteelProduct.fill(data)
-      const result = await hspxsteelProduct.save()
-      return result
+      const hspxsteelProduct = new HspxsteelProduct();
+      hspxsteelProduct.fill(data);
+      const result = await hspxsteelProduct.save();
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async show({ params }) {
-    const { id } = params
+    const { id } = params;
     try {
-      const data = await HspxsteelProduct.query()
-        .where('id', id)
-        .fetch()
-      return data
+      const data = await HspxsteelProduct.find(id);
+      return data;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async update({ params, request }) {
-    const { id } = params
-    const data = request.only(['image', 'zh_title', 'zh_content', 'type'])
+    const { id } = params;
+    const all = request.all();
     try {
       const result = await HspxsteelProduct.query()
-        .where('id', id)
-        .update(data)
-      return result
+        .where("id", id)
+        .update(all);
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async destroy({ params }) {
-    const { id } = params
+    const { id } = params;
     try {
-      const hspxsteelProduct = await HspxsteelProduct.find(id)
-      const result = await hspxsteelProduct.delete()
-      return result
+      const hspxsteelProduct = await HspxsteelProduct.find(id);
+      const result = await hspxsteelProduct.delete();
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 }
 
-module.exports = ProductController
+module.exports = ProductController;

@@ -32,9 +32,7 @@ class UserController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await User.query()
-        .where("id", id)
-        .fetch();
+      const data = await User.find(id);
       return data;
     } catch (error) {
       return error.toString();
