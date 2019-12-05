@@ -189,6 +189,8 @@ Route.group(() => {
   Route.get("/accesslog", "AccessLogController.index");
   Route.get("/accesslog/:id", "AccessLogController.show");
   Route.delete("/accesslog/:id", "AccessLogController.destroy");
+
+  Route.get("/product_type", "ProductTypeController.all");
 })
   .namespace("Hspx/Backend")
   .prefix(`hspx/backend/${ApiVersion}`);
