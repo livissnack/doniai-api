@@ -80,9 +80,7 @@ class ProductController {
   async detail({ params }) {
     const { id } = params;
     try {
-      const data = await HspxsteelProduct.query()
-        .where("id", id)
-        .fetch();
+      const data = await HspxsteelProduct.find(id);
       return data;
     } catch (error) {
       return error.toString();
