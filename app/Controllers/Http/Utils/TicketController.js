@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
-const axios = use('axios')
-const Config = use('Config')
-const ticketConfig = Config.get('12306.config')
+const axios = use("axios");
+const Config = use("Config");
+const ticketConfig = Config.get("12306.config");
 
 class TicketController {
   /**
@@ -18,11 +18,11 @@ class TicketController {
         to_station,
         purpose_codes
       } = request.only([
-        'train_date',
-        'from_station',
-        'to_station',
-        'purpose_codes'
-      ])
+        "train_date",
+        "from_station",
+        "to_station",
+        "purpose_codes"
+      ]);
       const url = `${ticketConfig.queryUrl}?${ticketConfig.prefix}.train_date=${
         train_date ? train_date : ticketConfig.train_date
       }&${ticketConfig.prefix}.from_station=${
@@ -31,13 +31,13 @@ class TicketController {
         to_station ? to_station : ticketConfig.to_station
       }&purpose_codes=${
         purpose_codes ? purpose_codes : ticketConfig.purpose_codes
-      }`
-      const result = await axios.get(url)
+      }`;
+      const result = await axios.get(url);
       if (result.data.httpstatus === 200) {
-        let queryRes = result.data.data.result
-        let doQueryRes = []
+        let queryRes = result.data.data.result;
+        let doQueryRes = [];
         queryRes.forEach((value, index) => {
-          let car = value.split('|')
+          let car = value.split("|");
           //   doQueryRes[index] = car;
           doQueryRes[index] = {
             secure_str: car[0], //安全字符串
@@ -63,19 +63,19 @@ class TicketController {
             business_seat: car[32], //商务座特等座
             first_class_seat: car[31], //一等座
             second_class_seat: car[30] //二等座
-          }
-        })
+          };
+        });
 
-        return doQueryRes
+        return doQueryRes;
       } else {
-        throw new '请求出错'()
+        throw new "请求出错"();
       }
     } catch (error) {
       return response.json({
-        status: 'failure',
-        msg: '数据获取失败',
+        status: "failure",
+        msg: "数据获取失败",
         data: error.toString()
-      })
+      });
     }
   }
 
@@ -93,32 +93,32 @@ class TicketController {
         seat_types,
         train_date
       } = request.only([
-        'train_no',
-        'from_station_no',
-        'to_station_no',
-        'seat_types',
-        'train_date'
-      ])
+        "train_no",
+        "from_station_no",
+        "to_station_no",
+        "seat_types",
+        "train_date"
+      ]);
       const url = `${ticketConfig.priceUrl}?train_no=${
-        train_no ? train_no : '65000K16200G'
+        train_no ? train_no : "65000K16200G"
       }&from_station_no=${
-        from_station_no ? from_station_no : '01'
-      }&to_station_no=${to_station_no ? to_station_no : '17'}&seat_types=${
-        seat_types ? seat_types : '1413'
-      }&train_date=${train_date ? train_date : '2019-10-01'}`
-      const result = await axios.get(url)
+        from_station_no ? from_station_no : "01"
+      }&to_station_no=${to_station_no ? to_station_no : "17"}&seat_types=${
+        seat_types ? seat_types : "1413"
+      }&train_date=${train_date ? train_date : "2019-10-01"}`;
+      const result = await axios.get(url);
       if (result.data.httpstatus === 200) {
-        let queryRes = result.data.data
-        return queryRes
+        let queryRes = result.data.data;
+        return queryRes;
       } else {
-        throw new '请求出错'()
+        throw new "请求出错"();
       }
     } catch (error) {
       return response.json({
-        status: 'failure',
-        msg: '数据获取失败',
+        status: "failure",
+        msg: "数据获取失败",
         data: error.toString()
-      })
+      });
     }
   }
 
@@ -135,31 +135,31 @@ class TicketController {
         to_station_telecode,
         depart_date
       } = request.only([
-        'train_no',
-        'from_station_telecode',
-        'to_station_telecode',
-        'depart_date'
-      ])
+        "train_no",
+        "from_station_telecode",
+        "to_station_telecode",
+        "depart_date"
+      ]);
       const url = `${ticketConfig.trainUrl}?train_no=${
-        train_no ? train_no : '65000K16200G'
+        train_no ? train_no : "65000K16200G"
       }&from_station_telecode=${
-        from_station_telecode ? from_station_telecode : 'BJQ'
+        from_station_telecode ? from_station_telecode : "BJQ"
       }&to_station_telecode=${
-        to_station_telecode ? to_station_telecode : 'QRN'
-      }&depart_date=${depart_date ? depart_date : '2019-10-01'}`
-      const result = await axios.get(url)
+        to_station_telecode ? to_station_telecode : "QRN"
+      }&depart_date=${depart_date ? depart_date : "2019-10-01"}`;
+      const result = await axios.get(url);
       if (result.data.httpstatus === 200) {
-        let queryRes = result.data.data
-        return queryRes
+        let queryRes = result.data.data;
+        return queryRes;
       } else {
-        throw new '请求出错'()
+        throw new "请求出错"();
       }
     } catch (error) {
       return response.json({
-        status: 'failure',
-        msg: '数据获取失败',
+        status: "failure",
+        msg: "数据获取失败",
         data: error.toString()
-      })
+      });
     }
   }
 
@@ -169,7 +169,7 @@ class TicketController {
    * @param {response} param0
    */
   async order({ request, response }) {
-    return 'order'
+    return "order";
   }
 
   /**
@@ -178,7 +178,7 @@ class TicketController {
    * @param {response} param0
    */
   async login({ request, response }) {
-    return 'login'
+    return "login";
   }
 
   /**
@@ -187,7 +187,7 @@ class TicketController {
    * @param {response} param0
    */
   async check({ request, response }) {
-    return 'check'
+    return "check";
   }
 
   /**
@@ -197,34 +197,34 @@ class TicketController {
    */
   async station({ request, response }) {
     try {
-      const cityCode = request.input('city_code', 'QRN')
-      const url = `${ticketConfig.stationsUrl}`
-      const result = await axios.get(url)
-      const stationStr = result.data.split('=')[1]
-      const stationArrStr = stationStr.split('@')
-      let allStation = []
-      stationArrStr.shift()
+      const cityCode = request.input("city_code", "QRN");
+      const url = `${ticketConfig.stationsUrl}`;
+      const result = await axios.get(url);
+      const stationStr = result.data.split("=")[1];
+      const stationArrStr = stationStr.split("@");
+      let allStation = [];
+      stationArrStr.shift();
       stationArrStr.forEach((value, index) => {
-        allStation[index] = value.split('|')
-      })
-      if (cityCode === 'ALL') {
-        return allStation
+        allStation[index] = value.split("|");
+      });
+      if (cityCode === "ALL") {
+        return allStation;
       } else {
         const findStation = allStation.filter(element => {
           if (element[2] === cityCode) {
-            return element
+            return element;
           }
-        })
-        return findStation
+        });
+        return findStation;
       }
     } catch (error) {
       return response.json({
-        status: 'failure',
-        msg: '数据获取失败',
+        status: "failure",
+        msg: "数据获取失败",
         data: error.toString()
-      })
+      });
     }
   }
 }
 
-module.exports = TicketController
+module.exports = TicketController;

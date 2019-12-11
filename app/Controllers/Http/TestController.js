@@ -1,15 +1,34 @@
-'use strict'
+"use strict";
 
-const { utilsPath, securtFileName } = require('../../Utils/Helpers')
-const Helpers = use('Helpers')
-const crypto = use('crypto')
-const fs = use('fs')
-const Hash = use('Hash')
+const {
+  utilsPath,
+  securtFileName,
+  betweenDiffTime
+} = require("../../Utils/Helpers");
+const Helpers = use("Helpers");
+const crypto = use("crypto");
+const fs = use("fs");
+const Hash = use("Hash");
+const moment = require("moment");
 
 class TestController {
   async test({ request }) {
-    const password = request.input('text')
-    return await Hash.make(password)
+    const currentTime = moment()
+      .locale("zh-cn")
+      .format("YYYY-MM-DD HH:mm:ss");
+    const lastTime = "2019-10-22 10:19:26";
+    const result = betweenDiffTime(currentTime, lastTime);
+
+    return result;
+  }
+
+  /**
+   * 生成密码
+   * @param {request} param0
+   */
+  async makePassword({ request }) {
+    const password = request.input("text", "abcd");
+    return await Hash.make(password);
   }
 
   /**
@@ -17,7 +36,7 @@ class TestController {
    * @param {*} param0
    */
   async download({ response }) {
-    return await response.download(utilsPath('Helpers.js'))
+    return await response.download(utilsPath("Helpers.js"));
   }
 
   /**
@@ -26,8 +45,8 @@ class TestController {
    * @param {response} object
    */
   async attachment({ request, response }) {
-    const customName = securtFileName(utilsPath('Helpers.js'))
-    return await response.attachment(utilsPath('Helpers.js'), customName)
+    const customName = securtFileName(utilsPath("Helpers.js"));
+    return await response.attachment(utilsPath("Helpers.js"), customName);
   }
 
   /**
@@ -37,12 +56,12 @@ class TestController {
    */
   async encrypt({ request, response }) {
     try {
-      const data = request.input('data')
-      const pubkeypath = Helpers.resourcesPath('rsas/publickey.pem')
-      const pubkey = fs.readFileSync(pubkeypath, 'utf8').toString()
-      return crypto.privateEncrypt(data, Buffer.from(pubkey, 'utf8'))
+      const data = request.input("data");
+      const pubkeypath = Helpers.resourcesPath("rsas/publickey.pem");
+      const pubkey = fs.readFileSync(pubkeypath, "utf8").toString();
+      return crypto.privateEncrypt(data, Buffer.from(pubkey, "utf8"));
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
@@ -53,14 +72,14 @@ class TestController {
    */
   async decrypt({ request, response }) {
     try {
-      const data = request.input('data')
-      const prikeypath = Helpers.resourcesPath('rsas/privatekey.pem')
-      const prikey = fs.readFileSync(prikeypath, 'utf8').toString()
-      return crypto.publicDecrypt(data, Buffer.from(prikey))
+      const data = request.input("data");
+      const prikeypath = Helpers.resourcesPath("rsas/privatekey.pem");
+      const prikey = fs.readFileSync(prikeypath, "utf8").toString();
+      return crypto.publicDecrypt(data, Buffer.from(prikey));
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 }
 
-module.exports = TestController
+module.exports = TestController;

@@ -1,85 +1,85 @@
-'use strict'
+"use strict";
 
-const Link = use('App/Models/Link')
-const { isEmpty } = require('../../../../Utils/Helpers')
+const Link = use("App/Models/Link");
+const { isEmpty } = require("../../../../Utils/Helpers");
 
 class LinkController {
   async index({ request }) {
     try {
-      const { page, perPage } = request.only(['page', 'perPage'])
-      let iWhere = {}
-      const name = request.input('name')
+      const { page, perPage } = request.only(["page", "perPage"]);
+      let iWhere = {};
+      const name = request.input("name");
       if (!isEmpty(name)) {
-        Object.assign(iWhere, { name: name })
+        Object.assign(iWhere, { name: name });
       }
-      const url = request.input('url')
+      const url = request.input("url");
       if (!isEmpty(url)) {
-        Object.assign(iWhere, { url: url })
+        Object.assign(iWhere, { url: url });
       }
-      const is_show = request.input('is_show')
+      const is_show = request.input("is_show");
       if (!isEmpty(is_show)) {
-        Object.assign(iWhere, { is_show: is_show })
+        Object.assign(iWhere, { is_show: is_show });
       }
-      const type = request.input('type')
+      const type = request.input("type");
       if (!isEmpty(type)) {
-        Object.assign(iWhere, { type: type })
+        Object.assign(iWhere, { type: type });
       }
       const data = await Link.query()
         .where(iWhere)
-        .paginate(page, perPage)
-      return data
+        .paginate(page, perPage);
+      return data;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async store({ request }) {
-    const data = request.only(['name', 'url', 'is_show', 'type'])
+    const data = request.only(["name", "url", "is_show", "type"]);
     try {
-      const link = new Link()
-      link.fill(data)
-      const result = await link.save()
-      return result
+      const link = new Link();
+      link.fill(data);
+      const result = await link.save();
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async show({ params }) {
-    const { id } = params
+    const { id } = params;
     try {
       const data = await Link.query()
-        .where('id', id)
-        .fetch()
-      return data
+        .where("id", id)
+        .fetch();
+      return data;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async update({ params, request }) {
-    const { id } = params
-    const data = request.only(['name', 'url', 'is_show', 'type'])
+    const { id } = params;
+    const data = request.only(["name", "url", "is_show", "type"]);
     try {
       const result = await Link.query()
-        .where('id', id)
-        .update(data)
-      return result
+        .where("id", id)
+        .update(data);
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 
   async destroy({ params }) {
-    const { id } = params
+    const { id } = params;
     try {
-      const link = await Link.find(id)
-      const result = await link.delete()
-      return result
+      const link = await Link.find(id);
+      const result = await link.delete();
+      return result;
     } catch (error) {
-      return error.toString()
+      return error.toString();
     }
   }
 }
 
-module.exports = LinkController
+module.exports = LinkController;
