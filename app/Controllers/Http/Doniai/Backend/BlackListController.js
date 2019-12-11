@@ -45,9 +45,7 @@ class BlackListController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await BlackList.query()
-        .where("id", id)
-        .fetch();
+      const data = await BlackList.find(id);
       return data;
     } catch (error) {
       return error.toString();

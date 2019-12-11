@@ -62,7 +62,7 @@ class CommentController {
       const data = await Comment.query()
         .where("id", id)
         .with("user")
-        .fetch();
+        .first();
       return data;
     } catch (error) {
       return error.toString();

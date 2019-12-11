@@ -66,8 +66,8 @@ class ArticleController {
         .with("user")
         .with("articleTag")
         .with("articleType")
-        .fetch();
-      return data;
+        .first();
+      return data.toJSON();
     } catch (error) {
       return error.toString();
     }

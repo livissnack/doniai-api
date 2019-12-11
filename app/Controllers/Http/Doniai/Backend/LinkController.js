@@ -48,9 +48,7 @@ class LinkController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Link.query()
-        .where("id", id)
-        .fetch();
+      const data = await Link.find(id);
       return data;
     } catch (error) {
       return error.toString();

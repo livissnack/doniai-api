@@ -70,9 +70,7 @@ class VideoController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Video.query()
-        .where("id", id)
-        .fetch();
+      const data = await Video.find(id);
       return data;
     } catch (error) {
       return error.toString();

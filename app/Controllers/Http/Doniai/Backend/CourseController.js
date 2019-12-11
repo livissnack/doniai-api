@@ -65,9 +65,7 @@ class CourseController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Course.query()
-        .where("id", id)
-        .fetch();
+      const data = await Course.find(id);
       return data;
     } catch (error) {
       return error.toString();

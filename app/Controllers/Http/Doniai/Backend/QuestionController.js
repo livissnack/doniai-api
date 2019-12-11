@@ -45,9 +45,7 @@ class QuestionController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Question.query()
-        .where("id", id)
-        .fetch();
+      const data = await Question.find(id);
       return data;
     } catch (error) {
       return error.toString();

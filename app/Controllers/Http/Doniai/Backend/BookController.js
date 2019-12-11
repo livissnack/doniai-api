@@ -40,9 +40,7 @@ class BookController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Book.query()
-        .where("id", id)
-        .fetch();
+      const data = await Book.find(id);
       return data;
     } catch (error) {
       return error.toString();

@@ -55,9 +55,7 @@ class ReplayController {
   async show({ params }) {
     const { id } = params;
     try {
-      const data = await Replay.query()
-        .where("id", id)
-        .fetch();
+      const data = await Replay.find(id);
       return data;
     } catch (error) {
       return error.toString();
