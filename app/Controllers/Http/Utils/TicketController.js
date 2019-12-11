@@ -32,7 +32,9 @@ class TicketController {
       }&purpose_codes=${
         purpose_codes ? purpose_codes : ticketConfig.purpose_codes
       }`;
+      console.log(url);
       const result = await axios.get(url);
+      console.log(result);
       if (result.data.httpstatus === 200) {
         let queryRes = result.data.data.result;
         let doQueryRes = [];
@@ -68,7 +70,7 @@ class TicketController {
 
         return doQueryRes;
       } else {
-        throw new "请求出错"();
+        throw new Error("请求出错");
       }
     } catch (error) {
       return response.json({
@@ -207,7 +209,7 @@ class TicketController {
       stationArrStr.forEach((value, index) => {
         allStation[index] = value.split("|");
       });
-      if (cityCode === "ALL") {
+      if (cityCode.toLowerCase() === "all") {
         return allStation;
       } else {
         const findStation = allStation.filter(element => {

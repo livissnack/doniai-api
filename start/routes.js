@@ -251,3 +251,11 @@ Route.group(() => {
 })
   .namespace("System")
   .prefix(`system/${ApiVersion}`);
+
+Route.group(() => {
+  //menu management
+  Route.get("/tickets", "TicketController.query");
+  Route.get("/stations", "TicketController.station");
+})
+  .namespace("Utils")
+  .prefix(`utils/${ApiVersion}`);
