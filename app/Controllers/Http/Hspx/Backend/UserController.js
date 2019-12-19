@@ -7,7 +7,7 @@ class UserController {
   async index({ request }) {
     try {
       const { page, perPage } = request.only(["page", "perPage"]);
-      let iWhere = { type: 2 };
+      let iWhere = { origin: 2 };
       const id = request.input("id");
       if (!isEmpty(id)) {
         Object.assign(iWhere, { id: id });
