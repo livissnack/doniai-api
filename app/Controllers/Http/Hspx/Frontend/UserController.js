@@ -23,10 +23,10 @@ class UserController {
       const result = await auth.withRefreshToken().attempt(email, password);
       const user = await User.query()
         .where("email", email)
-        .fetch();
+        .first();
       return {
         data: result,
-        user: user[0]
+        user: user
       };
     } catch (error) {
       return error.toString();
