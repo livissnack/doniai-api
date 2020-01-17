@@ -26,7 +26,7 @@ class UserController {
         .fetch();
       return {
         data: result,
-        user: user
+        user: user[0]
       };
     } catch (error) {
       return error.toString();
